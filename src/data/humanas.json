@@ -1,0 +1,63 @@
+
+{
+  "config": {
+    "id": "humanas",
+    "title": "Ciências Humanas",
+    "shortName": "HUMANAS",
+    "area": "Ciências Humanas e suas Tecnologias",
+    "color": "gray",
+    "goal": 750,
+    "weight": 1.0,
+    "competencies": [
+      "Interpretação de Texto",
+      "Geopolítica",
+      "História do Brasil",
+      "Filosofia"
+    ],
+    "authorizedWidgets": [
+      "KPIGrid",
+      "ProjectionChart",
+      "StrategicMatrix",
+      "CognitiveBreakdown"
+    ]
+  },
+  "registries": [
+    {
+      "id": "hum_2010_original",
+      "subjectId": "humanas",
+      "examRef": "ENEM 2010",
+      "date": "2025-01-03",
+      "timeSpent": "1h29",
+      "score": 587,
+      "profile": {
+        "age": 21,
+        "status": "Dez/2022"
+      },
+      "breakdown": [
+        { "level": 400, "total": 2, "correct": 2, "errors": 0 },
+        { "level": 450, "total": 1, "correct": 1, "errors": 0 },
+        { "level": 500, "total": 4, "correct": 4, "errors": 0 },
+        { "level": 550, "total": 5, "correct": 2, "errors": 3 },
+        { "level": 600, "total": 11, "correct": 6, "errors": 5 },
+        { "level": 650, "total": 7, "correct": 3, "errors": 4 },
+        { "level": 700, "total": 6, "correct": 2, "errors": 4 },
+        { "level": 750, "total": 3, "correct": 1, "errors": 2 },
+        { "level": 800, "total": 3, "correct": 0, "errors": 3 }
+      ],
+      "qualitative": {
+        "strongPoint": "Infalível no nível básico (400-500). Base teórica inicial excelente.",
+        "criticalZone": "Oscilação grave entre 550 (40%) e 600 (54.5%).",
+        "errorPattern": "Queda de rendimento em questões de transição (médio-difícil).",
+        "alert": "Zerou as questões de nível 800. Teto máximo atual limitado.",
+        "triAnalysis": [
+          "Curva pedagógica clássica: 100% nas fáceis, queda gradual nas médias e difíceis.",
+          "A queda em 550 (40%) é mais preocupante que em 800 (0%) para o cálculo do TRI."
+        ],
+        "actionPlan": [
+          "Revisão urgente dos tópicos que caíram na faixa 550.",
+          "Simular bateria de questões nível 600-650 para estabilizar acima de 60%."
+        ]
+      }
+    }
+  ]
+}
