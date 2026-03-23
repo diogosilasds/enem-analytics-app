@@ -1,0 +1,24 @@
+
+{
+  "config": {
+    "id": "redacao",
+    "title": "Redação",
+    "shortName": "REDAÇÃO",
+    "area": "Produção Textual",
+    "color": "gray",
+    "goal": 900,
+    "weight": 5.0,
+    "competencies": [
+      "C1: Gramática",
+      "C2: Tema/Estrutura",
+      "C3: Argumentação",
+      "C4: Coesão",
+      "C5: Proposta"
+    ],
+    "authorizedWidgets": [
+      "KPIGrid",
+      "TrendAnalysis"
+    ]
+  },
+  "registries": []
+}

@@ -1,0 +1,112 @@
+
+{
+  "config": {
+    "id": "matematica",
+    "title": "Matemática e Tecnologias",
+    "shortName": "MATEMÁTICA",
+    "area": "Matemática e suas Tecnologias",
+    "color": "gray",
+    "goal": 750,
+    "weight": 3.0,
+    "competencies": [
+      "Aritmética",
+      "Geometria",
+      "Estatística",
+      "Álgebra"
+    ],
+    "authorizedWidgets": [
+      "KPIGrid",
+      "ProjectionChart",
+      "StrategicMatrix",
+      "ComplexitySection"
+    ]
+  },
+  "registries": [
+    {
+      "id": "mat_2010_original",
+      "subjectId": "matematica",
+      "examRef": "ENEM 2010",
+      "date": "2026-01-05",
+      "timeSpent": "0h41",
+      "score": 609,
+      "profile": {
+        "age": 18,
+        "status": "Jan/2026"
+      },
+      "breakdown": [
+        { "level": 400, "total": 1, "correct": 1, "errors": 0 },
+        { "level": 450, "total": 1, "correct": 1, "errors": 0 },
+        { "level": 500, "total": 4, "correct": 4, "errors": 0 },
+        { "level": 550, "total": 3, "correct": 1, "errors": 2 },
+        { "level": 600, "total": 1, "correct": 1, "errors": 0 },
+        { "level": 650, "total": 7, "correct": 3, "errors": 4 },
+        { "level": 700, "total": 6, "correct": 3, "errors": 3 },
+        { "level": 750, "total": 6, "correct": 2, "errors": 4 },
+        { "level": 800, "total": 4, "correct": 1, "errors": 3 },
+        { "level": 850, "total": 7, "correct": 2, "errors": 5 },
+        { "level": 900, "total": 1, "correct": 0, "errors": 1 },
+        { "level": 1000, "total": 1, "correct": 1, "errors": 0 }
+      ],
+      "qualitative": {
+        "strongPoint": "Base Sólida (400-500). Gabaritou 6/6 questões fáceis.",
+        "criticalZone": "O \"Buraco\" dos 550. Acertar apenas 33% aqui penaliza severamente o TRI.",
+        "errorPattern": "Incoerência Gráfica: Errar nível 550 e acertar nível 1000 (Q21) é tóxico.",
+        "alert": "Tempo de prova (41min). Velocidade excessiva causou erros bobos.",
+        "triAnalysis": [
+          "TRI Comprometida: O sistema interpreta o acerto na Q21 (Nível 1000) como chute.",
+          "Teto de Vidro: Incoerência impede nota acima de 650, mesmo com acertos difíceis."
+        ],
+        "actionPlan": [
+          "Desacelerar: Usar as 2h30min disponíveis.",
+          "Foco Cirúrgico: Converter erros de nível 550, 650 e 700 em acertos."
+        ]
+      },
+      "questionLog": [
+        { "numero": 1, "dificuldade": "400", "situacao": "acerto" },
+        { "numero": 7, "dificuldade": "450", "situacao": "acerto" },
+        { "numero": 2, "dificuldade": "500", "situacao": "acerto" },
+        { "numero": 6, "dificuldade": "500", "situacao": "acerto" },
+        { "numero": 10, "dificuldade": "500", "situacao": "acerto" },
+        { "numero": 41, "dificuldade": "500", "situacao": "acerto" },
+        { "numero": 8, "dificuldade": "550", "situacao": "erro" },
+        { "numero": 11, "dificuldade": "550", "situacao": "erro" },
+        { "numero": 13, "dificuldade": "550", "situacao": "acerto" },
+        { "numero": 42, "dificuldade": "600", "situacao": "acerto" },
+        { "numero": 3, "dificuldade": "650", "situacao": "erro" },
+        { "numero": 4, "dificuldade": "650", "situacao": "erro" },
+        { "numero": 9, "dificuldade": "650", "situacao": "acerto" },
+        { "numero": 15, "dificuldade": "650", "situacao": "erro" },
+        { "numero": 36, "dificuldade": "650", "situacao": "acerto" },
+        { "numero": 38, "dificuldade": "650", "situacao": "erro" },
+        { "numero": 43, "dificuldade": "650", "situacao": "acerto" },
+        { "numero": 14, "dificuldade": "700", "situacao": "erro" },
+        { "numero": 17, "dificuldade": "700", "situacao": "acerto" },
+        { "numero": 18, "dificuldade": "700", "situacao": "erro" },
+        { "numero": 19, "dificuldade": "700", "situacao": "acerto" },
+        { "numero": 31, "dificuldade": "700", "situacao": "acerto" },
+        { "numero": 44, "dificuldade": "700", "situacao": "erro" },
+        { "numero": 5, "dificuldade": "750", "situacao": "erro" },
+        { "numero": 16, "dificuldade": "750", "situacao": "acerto" },
+        { "numero": 20, "dificuldade": "750", "situacao": "erro" },
+        { "numero": 23, "dificuldade": "750", "situacao": "erro" },
+        { "numero": 24, "dificuldade": "750", "situacao": "acerto" },
+        { "numero": 25, "dificuldade": "750", "situacao": "erro" },
+        { "numero": 12, "dificuldade": "800", "situacao": "acerto" },
+        { "numero": 27, "dificuldade": "800", "situacao": "erro" },
+        { "numero": 29, "dificuldade": "800", "situacao": "erro" },
+        { "numero": 35, "dificuldade": "800", "situacao": "erro" },
+        { "numero": 22, "dificuldade": "850", "situacao": "erro" },
+        { "numero": 32, "dificuldade": "850", "situacao": "erro" },
+        { "numero": 33, "dificuldade": "850", "situacao": "acerto" },
+        { "numero": 34, "dificuldade": "850", "situacao": "erro" },
+        { "numero": 37, "dificuldade": "850", "situacao": "erro" },
+        { "numero": 39, "dificuldade": "850", "situacao": "acerto" },
+        { "numero": 40, "dificuldade": "850", "situacao": "erro" },
+        { "numero": 28, "dificuldade": "900", "situacao": "erro" },
+        { "numero": 21, "dificuldade": "1000", "situacao": "acerto" },
+        { "numero": 26, "dificuldade": "Anulada", "situacao": "anulada" },
+        { "numero": 30, "dificuldade": "Anulada", "situacao": "anulada" }
+      ]
+    }
+  ]
+}

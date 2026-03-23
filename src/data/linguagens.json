@@ -1,0 +1,59 @@
+
+{
+  "config": {
+    "id": "linguagens",
+    "title": "Linguagens e Códigos",
+    "shortName": "LINGUAGENS",
+    "area": "Linguagens, Códigos e suas Tecnologias",
+    "color": "gray",
+    "goal": 750,
+    "weight": 1.0,
+    "competencies": [
+      "Interpretação",
+      "Gêneros Textuais",
+      "Artes",
+      "Literatura"
+    ],
+    "authorizedWidgets": [
+      "KPIGrid",
+      "ProjectionChart",
+      "StrategicMatrix",
+      "CognitiveBreakdown"
+    ]
+  },
+  "registries": [
+    {
+      "id": "lin_2010_original",
+      "subjectId": "linguagens",
+      "examRef": "ENEM 2010",
+      "date": "2025-01-01",
+      "timeSpent": "1h33",
+      "score": 567,
+      "profile": {
+        "age": 21,
+        "status": "Dez/2022"
+      },
+      "breakdown": [
+        { "level": 400, "total": 3, "correct": 3, "errors": 0 },
+        { "level": 450, "total": 5, "correct": 4, "errors": 1 },
+        { "level": 500, "total": 5, "correct": 5, "errors": 0 },
+        { "level": 550, "total": 9, "correct": 6, "errors": 3 },
+        { "level": 600, "total": 6, "correct": 2, "errors": 4 },
+        { "level": 650, "total": 6, "correct": 2, "errors": 4 },
+        { "level": 700, "total": 3, "correct": 2, "errors": 1 }
+      ],
+      "qualitative": {
+        "strongPoint": "Excelente em questões de interpretação básica.",
+        "criticalZone": "Queda brusca no nível intermediário.",
+        "errorPattern": "Desatenção em textos longos.",
+        "alert": "Teto de pontuação limitado pelas questões médias.",
+        "triAnalysis": [
+          "TRI saudável na base, frágil no meio."
+        ],
+        "actionPlan": [
+          "Treino de leitura ativa e resistência."
+        ]
+      }
+    }
+  ]
+}
