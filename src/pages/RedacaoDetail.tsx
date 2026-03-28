@@ -194,7 +194,7 @@ const RedacaoDetail = () => {
               <Tooltip contentStyle={tooltipStyle} />
               <Bar dataKey="value" name="Gap" fill={RED} fillOpacity={0.7} radius={[4, 4, 0, 0]}>
                 {discrepancyData.map((d, i) => (
-                  <cell key={i} fill={d.value > 0 ? RED : GREEN} />
+                  <Cell key={i} fill={d.value > 0 ? RED : GREEN} />
                 ))}
               </Bar>
             </BarChart>
