@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useDashboardOverview } from "@/hooks/useDashboard";
 import { dashboardService } from "@/services/dashboardService";
 import { NavHeader } from "@/components/dashboard/NavHeader";
+import { Footer } from "@/components/dashboard/Footer";
 import { StatBox } from "@/components/dashboard/StatBox";
 
 const GOAL = 750;
@@ -79,6 +80,7 @@ const Index = () => {
 
         <div>
           <h2 className="text-xl font-bold uppercase tracking-wider text-foreground italic">Módulos</h2>
+          <p className="text-[10px] text-muted-foreground uppercase tracking-wider mt-1">Selecione um módulo para análise detalhada</p>
           <div className="h-px bg-gradient-to-r from-primary/40 to-transparent mt-2" />
         </div>
 
@@ -87,7 +89,7 @@ const Index = () => {
           {subjects.map((s) => {
             const reg = dashboardService.getLatestRegistry(s);
             const score = reg?.score;
-            const goal = s.config.id === "redacao" ? 900 : 750;
+            const goal = s.config.goal;
             const pct = score ? Math.min((score / goal) * 100, 100) : 0;
             const efficiency = reg ? dashboardService.getSubjectEfficiency(reg) : 0;
 
@@ -139,7 +141,37 @@ const Index = () => {
             );
           })}
         </section>
+
+        {/* Audit Logs Card */}
+        <section
+          onClick={() => navigate("/debug")}
+          className="bg-card terminal-border rounded-lg p-5 cursor-pointer hover:glow-green-strong transition-all"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="px-2 py-0.5 text-[9px] font-bold border border-chart-highlight text-chart-highlight uppercase tracking-wider">SYS_DIAG</span>
+              <span className="px-1.5 py-0.5 text-[9px] border border-chart-highlight text-chart-highlight uppercase tracking-wider">WARN</span>
+            </div>
+          </div>
+          <div className="mt-3 flex items-center justify-between">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-wider text-foreground">AUDIT LOGS</p>
+              <p className="text-[10px] text-muted-foreground mt-1">Logs Registrados</p>
+            </div>
+            <div className="text-right">
+              <p className="text-3xl font-display font-bold text-chart-highlight">{totalQuestions}</p>
+              <span className="px-1.5 py-0.5 text-[9px] border border-destructive text-destructive uppercase tracking-wider">[CRITICAL]</span>
+            </div>
+          </div>
+          <div className="mt-3">
+            <span className="text-[10px] text-primary uppercase tracking-wider hover:text-foreground transition-colors">
+              VISUALIZAR MATRIZ →
+            </span>
+          </div>
+        </section>
       </main>
+
+      <Footer />
     </div>
   );
 };

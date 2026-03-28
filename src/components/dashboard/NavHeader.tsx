@@ -1,4 +1,4 @@
-import { Globe, BookOpen, Calculator, Microscope, PenTool, Wifi, Clock } from "lucide-react";
+import { Globe, BookOpen, Calculator, Microscope, PenTool, Wifi, Clock, Bug } from "lucide-react";
 import { dashboardService } from "@/services/dashboardService";
 
 const subjectIcons: Record<string, React.ReactNode> = {
@@ -37,6 +37,14 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
           </button>
 
           <nav className="hidden md:flex items-center gap-1">
+            <button
+              onClick={() => onNavigate("/")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider transition-colors ${
+                !currentId ? "text-primary" : "text-muted-foreground hover:text-primary"
+              }`}
+            >
+              VISÃO GERAL
+            </button>
             {subjects.map((s) => (
               <button
                 key={s.config.id}
@@ -49,6 +57,15 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
                 {s.config.shortName}
               </button>
             ))}
+            <button
+              onClick={() => onNavigate("/debug")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider transition-colors ${
+                currentId === "debug" ? "text-destructive" : "text-muted-foreground hover:text-destructive"
+              }`}
+            >
+              <Bug className="w-4 h-4" />
+              DEBUG_MODE
+            </button>
           </nav>
         </div>
 
