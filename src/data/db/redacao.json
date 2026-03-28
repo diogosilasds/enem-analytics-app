@@ -1,4 +1,3 @@
-
 {
   "config": {
     "id": "redacao",
@@ -8,17 +7,90 @@
     "color": "gray",
     "goal": 900,
     "weight": 5.0,
-    "competencies": [
-      "C1: Gramática",
-      "C2: Tema/Estrutura",
-      "C3: Argumentação",
-      "C4: Coesão",
-      "C5: Proposta"
-    ],
-    "authorizedWidgets": [
-      "KPIGrid",
-      "TrendAnalysis"
-    ]
+    "competencies": ["C1: Norma Culta", "C2: Tema/Estrutura", "C3: Argumentação", "C4: Coesão", "C5: Intervenção"]
   },
-  "registries": []
+  "registries": [
+    {
+      "id": "red_2026_mar",
+      "subjectId": "redacao",
+      "examRef": "Simulado 2026",
+      "date": "2026-03-12",
+      "timeSpent": "1h30",
+      "score": 920,
+      "profile": { "age": 18, "status": "Mar/2026" },
+      "breakdown": [],
+      "qualitative": {
+        "strongPoint": "Notas máximas em C2, C3, C4 e C5.",
+        "criticalZone": "C1 (Norma Culta) com 120/200 — principal ponto de perda.",
+        "errorPattern": "Erros de gramática, pontuação (vírgulas) e ortografia.",
+        "alert": "7 ocorrências de desvios gramaticais identificados.",
+        "triAnalysis": [],
+        "actionPlan": [
+          "Revisar regras de uso da vírgula.",
+          "Atenção à ortografia (ex: alcançarem).",
+          "Cuidado com a translineação."
+        ]
+      },
+      "theme": "Consequências da persistência dos casos de gravidez precoce no Brasil",
+      "competencies": [
+        { "id": "C1", "name": "Norma Culta", "description": "Demonstrar domínio da modalidade escrita formal da Língua Portuguesa.", "score": 120, "max": 200 },
+        { "id": "C2", "name": "Tema/Estrutura", "description": "Compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites estruturais do texto dissertativo-argumentativo em prosa.", "score": 200, "max": 200 },
+        { "id": "C3", "name": "Argumentação", "description": "Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista.", "score": 200, "max": 200 },
+        { "id": "C4", "name": "Coesão", "description": "Demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação.", "score": 200, "max": 200 },
+        { "id": "C5", "name": "Intervenção", "description": "Elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos.", "score": 200, "max": 200 }
+      ],
+      "essayErrors": [
+        { "type": "GRAMÁTICA", "line": 5, "text": "alcansarem", "correction": "alcançarem", "competency": "C1" },
+        { "type": "GRAMÁTICA", "line": 10, "text": "nulas,", "correction": "vírgula", "competency": "C1" },
+        { "type": "GRAMÁTICA", "line": 13, "text": "subsistência,", "correction": "vírgula", "competency": "C1" },
+        { "type": "GRAMÁTICA", "line": 14, "text": "carecem", "correction": "carecem", "competency": "C1" },
+        { "type": "GRAMÁTICA", "line": 19, "text": "Portanto,", "correction": "vírgula", "competency": "C1" },
+        { "type": "GRAMÁTICA", "line": 21, "text": "o-", "correction": "translineação", "competency": "C1" },
+        { "type": "GRAMÁTICA", "line": 24, "text": "Amado,", "correction": "vírgula", "competency": "C1" }
+      ],
+      "transcription": [
+        "Na obra \"Capitães da Areia\", Jorge Amado ilustra jovens à margem da",
+        "sociedade, realidade que ecoa nos atuais índices de gravidez precoce no Bra-",
+        "sil. Essa realidade configura em um entrave ao progresso nacional, deriva-",
+        "do da precariedade socioeconômica e da defasagem educacional. Essa con-",
+        "juntura é uma barreira que impede adolescentes de alcansarem seu pleno",
+        "potencial.",
+        "",
+        "Primordialmente, a gestação na juventude impõe um ciclo de pobreza in-",
+        "tergeracional que limita o futuro dos envolvidos. Isso ocorre porque o nasci-",
+        "mento de um filho exige responsabilidades que o (ab) adolescente raramente,",
+        "para não dizer nulas, consegue assumir. Segundo o DataSUS, o Brasil",
+        "registrou mais de 300 mil partos nessa faixa etária (15-19 anos) em 2023.",
+        "Ademais, a ausência de uma educação sexual agrava a situação. Esse ce-",
+        "nário perdura em famílias vulneráveis, preocupadas com a subsistência,",
+        "carecem de acesso a informações preventivas. A disparidade regional, onde",
+        "o norte supera o sudeste em casos de fecundidade, demonstra que a falta",
+        "de suporte estatal deturpa o desenvolvimento pleno da juventude. Dessa",
+        "forma, a ineficiência governamental garante que o problema se torne crô-",
+        "nico.",
+        "",
+        "Portanto, cabe aos Ministérios da Educação e da Saúde a execução de pro-",
+        "gramas integrados de orientação reprodutiva e suporte socioeducativo",
+        "em escolas e postos de saúde. Essa medida é para converter a carência de o-",
+        "portunidades em horizonte de autonomia financeira e pleno desenvol-",
+        "vimento intelectual. Como resultado, retira a juventude descrita por",
+        "Jorge Amado, permitindo que a (premissa) premissa de liberdade e dig-",
+        "nidade substitua a persistência de um cenário social falho."
+      ],
+      "correctorTips": [
+        { "competency": "C1", "competencyName": "Demonstrar domínio da norma culta da língua escrita", "tip": "virgula" },
+        { "competency": "C1", "competencyName": "Demonstrar domínio da norma culta da língua escrita", "tip": "alcançarem" },
+        { "competency": "C1", "competencyName": "Demonstrar domínio da norma culta da língua escrita", "tip": "virgula" },
+        { "competency": "C1", "competencyName": "Demonstrar domínio da norma culta da língua escrita", "tip": "vvirgula" },
+        { "competency": "C1", "competencyName": "Demonstrar domínio da norma culta da língua escrita", "tip": "carecem" },
+        { "competency": "C1", "competencyName": "Demonstrar domínio da norma culta da língua escrita", "tip": "TRANSLINEAÇÃO" },
+        { "competency": "C1", "competencyName": "Demonstrar domínio da norma culta da língua escrita", "tip": "virgula" }
+      ],
+      "guidelines": [
+        { "id": "01", "text": "C1: Revisar regras de uso da vírgula", "status": "PENDENTE" },
+        { "id": "02", "text": "C1: Atenção à ortografia (ex: alcançarem)", "status": "PENDENTE" },
+        { "id": "03", "text": "C1: Cuidado com a translineação", "status": "PENDENTE" }
+      ]
+    }
+  ]
 }

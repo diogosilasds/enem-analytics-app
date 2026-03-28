@@ -1,4 +1,3 @@
-
 {
   "config": {
     "id": "humanas",
@@ -8,18 +7,7 @@
     "color": "gray",
     "goal": 750,
     "weight": 1.0,
-    "competencies": [
-      "Interpretação de Texto",
-      "Geopolítica",
-      "História do Brasil",
-      "Filosofia"
-    ],
-    "authorizedWidgets": [
-      "KPIGrid",
-      "ProjectionChart",
-      "StrategicMatrix",
-      "CognitiveBreakdown"
-    ]
+    "competencies": ["Interpretação de Texto", "Geopolítica", "História do Brasil", "Filosofia"]
   },
   "registries": [
     {
@@ -29,10 +17,7 @@
       "date": "2025-01-03",
       "timeSpent": "1h29",
       "score": 587,
-      "profile": {
-        "age": 21,
-        "status": "Dez/2022"
-      },
+      "profile": { "age": 21, "status": "Dez/2022" },
       "breakdown": [
         { "level": 400, "total": 2, "correct": 2, "errors": 0 },
         { "level": 450, "total": 1, "correct": 1, "errors": 0 },
@@ -40,9 +25,9 @@
         { "level": 550, "total": 5, "correct": 2, "errors": 3 },
         { "level": 600, "total": 11, "correct": 6, "errors": 5 },
         { "level": 650, "total": 7, "correct": 3, "errors": 4 },
-        { "level": 700, "total": 6, "correct": 2, "errors": 4 },
+        { "level": 700, "total": 5, "correct": 2, "errors": 3 },
         { "level": 750, "total": 3, "correct": 1, "errors": 2 },
-        { "level": 800, "total": 3, "correct": 0, "errors": 3 }
+        { "level": 800, "total": 4, "correct": 0, "errors": 4 }
       ],
       "qualitative": {
         "strongPoint": "Infalível no nível básico (400-500). Base teórica inicial excelente.",
@@ -57,7 +42,54 @@
           "Revisão urgente dos tópicos que caíram na faixa 550.",
           "Simular bateria de questões nível 600-650 para estabilizar acima de 60%."
         ]
-      }
+      },
+      "questionLog": [
+        { "numero": 4, "dificuldade": "400", "situacao": "acerto" },
+        { "numero": 37, "dificuldade": "400", "situacao": "acerto" },
+        { "numero": 8, "dificuldade": "450", "situacao": "acerto" },
+        { "numero": 12, "dificuldade": "500", "situacao": "acerto" },
+        { "numero": 23, "dificuldade": "500", "situacao": "acerto" },
+        { "numero": 38, "dificuldade": "500", "situacao": "acerto" },
+        { "numero": 39, "dificuldade": "500", "situacao": "acerto" },
+        { "numero": 9, "dificuldade": "550", "situacao": "erro" },
+        { "numero": 40, "dificuldade": "550", "situacao": "erro" },
+        { "numero": 41, "dificuldade": "550", "situacao": "erro" },
+        { "numero": 42, "dificuldade": "550", "situacao": "acerto" },
+        { "numero": 43, "dificuldade": "550", "situacao": "acerto" },
+        { "numero": 1, "dificuldade": "600", "situacao": "acerto" },
+        { "numero": 2, "dificuldade": "600", "situacao": "erro" },
+        { "numero": 14, "dificuldade": "600", "situacao": "erro" },
+        { "numero": 16, "dificuldade": "600", "situacao": "acerto" },
+        { "numero": 21, "dificuldade": "600", "situacao": "acerto" },
+        { "numero": 27, "dificuldade": "600", "situacao": "erro" },
+        { "numero": 28, "dificuldade": "600", "situacao": "erro" },
+        { "numero": 30, "dificuldade": "600", "situacao": "acerto" },
+        { "numero": 32, "dificuldade": "600", "situacao": "acerto" },
+        { "numero": 35, "dificuldade": "600", "situacao": "erro" },
+        { "numero": 45, "dificuldade": "600", "situacao": "acerto" },
+        { "numero": 3, "dificuldade": "650", "situacao": "erro" },
+        { "numero": 5, "dificuldade": "650", "situacao": "erro" },
+        { "numero": 6, "dificuldade": "650", "situacao": "acerto" },
+        { "numero": 7, "dificuldade": "650", "situacao": "acerto" },
+        { "numero": 26, "dificuldade": "650", "situacao": "erro" },
+        { "numero": 29, "dificuldade": "650", "situacao": "acerto" },
+        { "numero": 33, "dificuldade": "650", "situacao": "erro" },
+        { "numero": 11, "dificuldade": "700", "situacao": "erro" },
+        { "numero": 13, "dificuldade": "700", "situacao": "erro" },
+        { "numero": 15, "dificuldade": "700", "situacao": "erro" },
+        { "numero": 19, "dificuldade": "700", "situacao": "acerto" },
+        { "numero": 44, "dificuldade": "700", "situacao": "acerto" },
+        { "numero": 18, "dificuldade": "750", "situacao": "acerto" },
+        { "numero": 20, "dificuldade": "750", "situacao": "erro" },
+        { "numero": 36, "dificuldade": "750", "situacao": "erro" },
+        { "numero": 10, "dificuldade": "800", "situacao": "erro" },
+        { "numero": 17, "dificuldade": "800", "situacao": "erro" },
+        { "numero": 31, "dificuldade": "800", "situacao": "erro" },
+        { "numero": 34, "dificuldade": "800", "situacao": "erro" },
+        { "numero": 22, "dificuldade": "Anulada", "situacao": "anulada" },
+        { "numero": 24, "dificuldade": "Anulada", "situacao": "anulada" },
+        { "numero": 25, "dificuldade": "Anulada", "situacao": "anulada" }
+      ]
     }
   ]
 }
