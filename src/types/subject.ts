@@ -20,6 +20,42 @@ export interface QualitativeData {
   actionPlan: string[];
 }
 
+export interface CompetencyScore {
+  id: string;
+  name: string;
+  description: string;
+  score: number;
+  max: number;
+}
+
+export interface EssayError {
+  type: string;
+  line: number;
+  text: string;
+  correction: string;
+  competency: string;
+}
+
+export interface CorrectorTip {
+  competency: string;
+  competencyName: string;
+  tip: string;
+}
+
+export interface Guideline {
+  id: string;
+  text: string;
+  status: string;
+}
+
+export interface RescuePlan {
+  tier: string;
+  range: string;
+  current: string;
+  target: string;
+  comment: string;
+}
+
 export interface Registry {
   id: string;
   subjectId: string;
@@ -31,6 +67,14 @@ export interface Registry {
   breakdown: BreakdownItem[];
   qualitative: QualitativeData;
   questionLog?: QuestionLogItem[];
+  // Redação-specific
+  theme?: string;
+  competencies?: CompetencyScore[];
+  essayErrors?: EssayError[];
+  transcription?: string[];
+  correctorTips?: CorrectorTip[];
+  guidelines?: Guideline[];
+  rescuePlan?: RescuePlan[];
 }
 
 export interface SubjectConfig {
