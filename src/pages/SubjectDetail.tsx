@@ -10,13 +10,13 @@ import {
   ScatterChart, Scatter, ZAxis, ReferenceLine, ReferenceArea,
 } from "recharts";
 
-const GREEN = "hsl(160, 100%, 50%)";
-const RED = "hsl(340, 90%, 55%)";
-const NEUTRAL = "hsl(215, 15%, 45%)";
-const YELLOW = "hsl(45, 93%, 58%)";
-const CYAN = "hsl(180, 100%, 50%)";
-const GRID = "hsl(160,30%,15%)";
-const CARD_BG = "hsl(220,16%,9%)";
+const GREEN = "hsl(170, 45%, 38%)";
+const RED = "hsl(340, 70%, 48%)";
+const NEUTRAL = "hsl(215, 12%, 42%)";
+const YELLOW = "hsl(42, 60%, 50%)";
+const CYAN = "hsl(180, 40%, 40%)";
+const GRID = "hsl(170,15%,13%)";
+const CARD_BG = "hsl(220,16%,7%)";
 
 const tooltipStyle = {
   background: CARD_BG,
@@ -46,7 +46,7 @@ const SubjectDetail = () => {
 
   if (!subject || !reg || !stats) {
     return (
-      <div className="min-h-screen bg-background scanline">
+      <div className="min-h-screen bg-background">
         <NavHeader currentId={id} onNavigate={navigate} />
         <div className="max-w-6xl mx-auto px-4 py-16 text-center">
           <p className="text-muted-foreground text-lg">NO_DATA: Nenhum registro encontrado</p>
@@ -60,7 +60,6 @@ const SubjectDetail = () => {
   const totalErrors = totalQuestions - totalCorrect;
   const gap = goal - reg.score;
 
-  // Projection data
   const projectionData = (() => {
     const months = ["Jan/26", "Fev/26", "Mar/26", "Abr/26", "Mai/26", "Jun/26", "Jul/26", "Ago/26", "Set/26", "Out/26", "ENEM"];
     const delta = gap > 0 ? gap / 10 : 1;
@@ -73,7 +72,6 @@ const SubjectDetail = () => {
 
   const reqDelta = gap > 0 ? (gap / 10).toFixed(1) : "0.0";
 
-  // Cognitive layers
   const baseLevels = reg.breakdown.filter(b => b.level <= 500);
   const opLevels = reg.breakdown.filter(b => b.level > 500 && b.level <= 700);
   const advLevels = reg.breakdown.filter(b => b.level > 700);
@@ -90,7 +88,6 @@ const SubjectDetail = () => {
   const opCount = layerCount(opLevels);
   const advCount = layerCount(advLevels);
 
-  // Scatter plot data
   const scatterData = reg.breakdown.map(b => ({
     x: b.level,
     y: b.errors,
@@ -105,33 +102,28 @@ const SubjectDetail = () => {
   const maxErrors = Math.max(...reg.breakdown.map(b => b.errors));
   const midErrors = Math.round(maxErrors / 2);
 
-  // Pareto data (sorted by errors desc)
   const paretoData = [...reg.breakdown]
     .filter(b => b.errors > 0)
     .sort((a, b) => b.errors - a.errors)
     .map(b => ({ level: String(b.level), errors: b.errors }));
 
-  // Elasticity data
   const elasticityData = reg.breakdown.map(b => ({
     level: String(b.level),
     taxa: b.total > 0 ? Math.round((b.correct / b.total) * 100) : 0,
   }));
 
-  // Radar data
   const radarData = reg.breakdown.map(b => ({
     level: String(b.level),
     taxa: b.total > 0 ? Math.round((b.correct / b.total) * 100) : 0,
     fullMark: 100,
   }));
 
-  // Vol vs Efficiency
   const volEffData = reg.breakdown.map(b => ({
     level: String(b.level),
     volume: b.total,
     efficiency: b.total > 0 ? Math.round((b.correct / b.total) * 100) : 0,
   }));
 
-  // Rescue plan
   const rescuePlan = [
     { tier: "Base (400-500)", current: `${baseRate}%`, target: "100%", comment: "Blindar a base. Tolerância zero a erros." },
     { tier: "Operacional (500-700)", current: `${opRate}%`, target: "80%", comment: "Prioridade tática. Aqui se ganha volume." },
@@ -139,22 +131,19 @@ const SubjectDetail = () => {
   ];
 
   const examYear = reg.examRef.match(/\d{4}/)?.[0] || new Date().getFullYear();
-  const dateObj = new Date(reg.date);
-  const monthNames = ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"];
 
   return (
-    <div className="min-h-screen bg-background scanline">
+    <div className="min-h-screen bg-background">
       <NavHeader currentId={subject.config.id} onNavigate={navigate} />
 
-      {/* Header */}
       <div className="max-w-6xl mx-auto px-4 pt-6 pb-4">
         <div className="flex items-center gap-3 mb-2">
           <button onClick={() => navigate("/")} className="text-muted-foreground hover:text-primary transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </button>
-          <span className="text-primary text-lg font-bold">SECTION://{subject.config.id.toUpperCase()}</span>
+          <span className="text-primary text-base sm:text-lg font-bold">SECTION://{subject.config.id.toUpperCase()}</span>
         </div>
-        <div className="flex items-center gap-4 ml-10">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4 ml-8 sm:ml-10">
           <span className="flex items-center gap-1.5 text-[10px] text-primary">
             <span className="w-2 h-2 rounded-full bg-primary" />
             ACCESS://GRANTED
@@ -166,10 +155,10 @@ const SubjectDetail = () => {
             SYNC_RDY
           </span>
         </div>
-        <p className="text-[10px] text-muted-foreground uppercase tracking-wider mt-2 ml-10">
+        <p className="text-[10px] text-muted-foreground uppercase tracking-wider mt-2 ml-8 sm:ml-10">
           SUBSYSTEM://TELEMETRY_CORE
         </p>
-        <div className="h-px bg-gradient-to-r from-primary/60 via-primary/20 to-transparent mt-3" />
+        <div className="h-px bg-gradient-to-r from-primary/40 via-primary/10 to-transparent mt-3" />
       </div>
 
       <main className="max-w-6xl mx-auto px-4 pb-8 space-y-6">
@@ -185,15 +174,15 @@ const SubjectDetail = () => {
         </section>
 
         {/* Projection AreaChart */}
-        <section className="bg-card terminal-border rounded-lg p-5">
+        <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
           <div className="flex items-center gap-2 mb-1">
             <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">VETOR_DE_PROJEÇÃO</span>
           </div>
-          <div className="flex items-center gap-4 mb-4 text-[10px] text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-4 text-[10px] text-muted-foreground">
             <span>Linear_Growth_Algorithm_v2</span>
             <span className="text-primary">REQ_DELTA: +{reqDelta} PTS/NODE</span>
           </div>
-          <ResponsiveContainer width="100%" height={260}>
+          <ResponsiveContainer width="100%" height={240}>
             <AreaChart data={projectionData}>
               <defs>
                 <linearGradient id="projGrad" x1="0" y1="0" x2="0" y2="1">
@@ -213,8 +202,7 @@ const SubjectDetail = () => {
 
         {/* Cognitive layers + Maturity table */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {/* Cognitive */}
-          <section className="bg-card terminal-border rounded-lg p-5">
+          <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
             <div className="flex items-center gap-2 mb-4">
               <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">REPROCESSAMENTO_COGNITIVO</span>
             </div>
@@ -225,8 +213,7 @@ const SubjectDetail = () => {
             </div>
           </section>
 
-          {/* Maturity table */}
-          <section className="bg-card terminal-border rounded-lg p-5">
+          <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
             <div className="flex items-center justify-between mb-4">
               <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">MATRIZ_DE_MATURIDADE</span>
               <span className="text-[9px] text-muted-foreground">V4.0_STABLE</span>
@@ -261,31 +248,31 @@ const SubjectDetail = () => {
           </section>
         </div>
 
-        {/* Scatter Plot - Strategic Matrix */}
-        <section className="bg-card terminal-border rounded-lg p-5">
+        {/* Scatter Plot */}
+        <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
           <div className="flex items-center gap-2 mb-1">
             <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">Matriz de Priorização</span>
           </div>
           <p className="text-[10px] text-muted-foreground mb-1">Impacto (Erros) × Esforço (Dificuldade)</p>
           <p className="text-[10px] text-muted-foreground mb-4">Q. Sup. Esquerdo = Prioridade</p>
 
-          <div className="flex gap-4 mb-3 text-[9px]">
+          <div className="flex flex-wrap gap-3 sm:gap-4 mb-3 text-[9px]">
             <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-destructive" /> Atacar</span>
             <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-chart-highlight" /> Oportunidade</span>
             <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-muted-foreground" /> Monitorar</span>
             <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-chart-correct" /> Refinar</span>
           </div>
 
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={280}>
             <ScatterChart>
               <CartesianGrid strokeDasharray="3 3" stroke={GRID} />
               <XAxis type="number" dataKey="x" name="Dificuldade" domain={[minLevel - 50, maxLevel + 50]} tick={{ fontSize: 9, fill: NEUTRAL }} label={{ value: "Dificuldade", position: "bottom", fill: NEUTRAL, fontSize: 10 }} />
               <YAxis type="number" dataKey="y" name="Erros" domain={[0, maxErrors + 1]} tick={{ fontSize: 9, fill: NEUTRAL }} label={{ value: "Erros (Impacto)", angle: -90, position: "insideLeft", fill: NEUTRAL, fontSize: 10 }} />
               <ZAxis type="number" dataKey="z" range={[60, 400]} name="Volume" />
-              <ReferenceArea x1={minLevel - 50} x2={midLevel} y1={midErrors} y2={maxErrors + 1} fill="hsl(340,90%,55%)" fillOpacity={0.05} />
-              <ReferenceArea x1={midLevel} x2={maxLevel + 50} y1={midErrors} y2={maxErrors + 1} fill="hsl(45,93%,58%)" fillOpacity={0.05} />
-              <ReferenceArea x1={minLevel - 50} x2={midLevel} y1={0} y2={midErrors} fill="hsl(215,15%,45%)" fillOpacity={0.05} />
-              <ReferenceArea x1={midLevel} x2={maxLevel + 50} y1={0} y2={midErrors} fill="hsl(160,100%,50%)" fillOpacity={0.05} />
+              <ReferenceArea x1={minLevel - 50} x2={midLevel} y1={midErrors} y2={maxErrors + 1} fill="hsl(340,70%,48%)" fillOpacity={0.05} />
+              <ReferenceArea x1={midLevel} x2={maxLevel + 50} y1={midErrors} y2={maxErrors + 1} fill="hsl(42,60%,50%)" fillOpacity={0.05} />
+              <ReferenceArea x1={minLevel - 50} x2={midLevel} y1={0} y2={midErrors} fill="hsl(215,12%,42%)" fillOpacity={0.05} />
+              <ReferenceArea x1={midLevel} x2={maxLevel + 50} y1={0} y2={midErrors} fill="hsl(170,45%,38%)" fillOpacity={0.05} />
               <Tooltip contentStyle={tooltipStyle} formatter={(v: number, name: string) => [v, name]} />
               <Scatter data={scatterData}>
                 {scatterData.map((entry, i) => (
@@ -302,7 +289,7 @@ const SubjectDetail = () => {
         </section>
 
         {/* Diagnostic + Rescue Plan */}
-        <section className="bg-card terminal-border rounded-lg p-5 space-y-4">
+        <section className="bg-card terminal-border rounded-lg p-4 sm:p-5 space-y-4">
           <div className="flex items-center gap-2">
             <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">DIAGNÓSTICO_SISTÊMICO</span>
           </div>
@@ -314,8 +301,8 @@ const SubjectDetail = () => {
             <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-3">PLANO_DE_RESGATE</p>
             <div className="space-y-3">
               {rescuePlan.map((r, i) => (
-                <div key={i} className="border-l-2 border-primary/40 pl-3">
-                  <div className="flex items-center gap-2 mb-1">
+                <div key={i} className="border-l-2 border-primary/30 pl-3">
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
                     <span className="text-xs font-bold text-foreground">{r.tier}</span>
                     <span className="text-xs text-primary">{r.current} &gt;&gt; {r.target}</span>
                   </div>
@@ -328,7 +315,7 @@ const SubjectDetail = () => {
 
         {/* Pareto + Elasticity */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <section className="bg-card terminal-border rounded-lg p-5">
+          <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
             <div className="flex items-center gap-2 mb-4">
               <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">Pareto de Erros</span>
             </div>
@@ -349,7 +336,7 @@ const SubjectDetail = () => {
             )}
           </section>
 
-          <section className="bg-card terminal-border rounded-lg p-5">
+          <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
             <div className="flex items-center gap-2 mb-4">
               <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">Elasticidade de Dificuldade</span>
             </div>
@@ -374,11 +361,11 @@ const SubjectDetail = () => {
 
         {/* Radar + Vol/Efficiency */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <section className="bg-card terminal-border rounded-lg p-5">
+          <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
             <div className="flex items-center gap-2 mb-4">
               <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">BALANÇO_COMPETÊNCIA</span>
             </div>
-            <ResponsiveContainer width="100%" height={280}>
+            <ResponsiveContainer width="100%" height={260}>
               <RadarChart data={radarData}>
                 <PolarGrid stroke={GRID} />
                 <PolarAngleAxis dataKey="level" tick={{ fontSize: 9, fill: NEUTRAL }} />
@@ -388,12 +375,12 @@ const SubjectDetail = () => {
             </ResponsiveContainer>
           </section>
 
-          <section className="bg-card terminal-border rounded-lg p-5">
+          <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
             <div className="flex items-center gap-2 mb-1">
               <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">ALGO_ABSTRACTION_MATRIX</span>
             </div>
             <p className="text-[10px] text-muted-foreground mb-3">VOL_VS_EFICIÊNCIA</p>
-            <ResponsiveContainer width="100%" height={260}>
+            <ResponsiveContainer width="100%" height={240}>
               <ComposedChart data={volEffData}>
                 <CartesianGrid strokeDasharray="3 3" stroke={GRID} />
                 <XAxis dataKey="level" tick={{ fontSize: 9, fill: NEUTRAL }} />
@@ -408,7 +395,7 @@ const SubjectDetail = () => {
         </div>
 
         {/* Performance Curve */}
-        <section className="bg-card terminal-border rounded-lg p-5">
+        <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
           <div className="flex items-center gap-2 mb-4">
             <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">OPERATIONAL_DENSITY_SYNC</span>
           </div>
@@ -425,7 +412,7 @@ const SubjectDetail = () => {
         </section>
 
         {/* Detailed Table */}
-        <section className="bg-card terminal-border rounded-lg p-5">
+        <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
           <div className="flex items-center gap-2 mb-4">
             <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">Matriz detalhada</span>
           </div>
@@ -476,12 +463,12 @@ function KpiBox({ tag, value, sub, prefix, suffix, variant }: {
     : "text-foreground";
 
   return (
-    <div className="bg-card terminal-border rounded-lg p-4">
-      <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-2">{tag}</p>
-      <p className={`text-3xl font-display font-bold ${valColor} tracking-tight`}>
+    <div className="bg-card terminal-border rounded-lg p-3 sm:p-4">
+      <p className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider mb-2">{tag}</p>
+      <p className={`text-2xl sm:text-3xl font-display font-bold ${valColor} tracking-tight`}>
         {prefix}{value}{suffix}
       </p>
-      <p className="text-[10px] text-muted-foreground mt-1">{sub}</p>
+      <p className="text-[9px] sm:text-[10px] text-muted-foreground mt-1">{sub}</p>
     </div>
   );
 }
