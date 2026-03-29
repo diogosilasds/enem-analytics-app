@@ -4,6 +4,7 @@ import { dashboardService } from "@/services/dashboardService";
 import { NavHeader } from "@/components/dashboard/NavHeader";
 import { Footer } from "@/components/dashboard/Footer";
 import { StatBox } from "@/components/dashboard/StatBox";
+import { AlertTriangle } from "lucide-react";
 
 const GOAL = 750;
 
@@ -21,35 +22,20 @@ const Index = () => {
   const progress = Math.min((average / GOAL) * 100, 100);
 
   return (
-    <div className="min-h-screen bg-background scanline">
+    <div className="min-h-screen bg-background">
       <NavHeader onNavigate={navigate} />
 
-      {/* Mobile nav */}
-      <div className="md:hidden border-b border-border px-4 py-2 overflow-x-auto">
-        <div className="flex gap-1">
-          {subjects.map((s) => (
-            <button
-              key={s.config.id}
-              onClick={() => navigate(`/materia/${s.config.id}`)}
-              className="flex items-center gap-1 px-2.5 py-1 text-[10px] uppercase tracking-wider text-muted-foreground hover:text-primary transition-colors whitespace-nowrap"
-            >
-              {s.config.shortName}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <main className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+      <main className="max-w-6xl mx-auto px-4 py-6 sm:py-8 space-y-6 sm:space-y-8">
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold uppercase tracking-wider text-foreground italic">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold uppercase tracking-wider text-foreground">
             Central de Inteligência
           </h2>
           <p className="text-xs text-muted-foreground uppercase tracking-widest mt-1">Visão geral do sistema</p>
-          <div className="h-px bg-gradient-to-r from-primary/60 via-primary/20 to-transparent mt-3" />
+          <div className="h-px bg-gradient-to-r from-primary/40 via-primary/10 to-transparent mt-3" />
         </div>
 
         {/* Stats panel */}
-        <section className="bg-card terminal-border rounded-lg p-6 glow-green">
+        <section className="bg-card terminal-border rounded-lg p-4 sm:p-6">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6">
             <div>
               <div className="flex items-center gap-2 mb-3">
@@ -57,8 +43,8 @@ const Index = () => {
                 <span className="text-xs text-muted-foreground uppercase tracking-wider">Média Geral vs Meta</span>
               </div>
               <div className="flex items-baseline gap-3 mb-6">
-                <span className="text-6xl md:text-7xl font-display font-bold text-foreground text-glow tracking-tight">{average}</span>
-                <span className="text-2xl md:text-3xl text-muted-foreground font-display">/ {GOAL}</span>
+                <span className="text-5xl sm:text-6xl md:text-7xl font-display font-bold text-foreground tracking-tight">{average}</span>
+                <span className="text-xl sm:text-2xl md:text-3xl text-muted-foreground font-display">/ {GOAL}</span>
               </div>
               <div className="space-y-1">
                 <div className="flex justify-between text-[10px] text-muted-foreground uppercase tracking-wider">
@@ -79,12 +65,12 @@ const Index = () => {
         </section>
 
         <div>
-          <h2 className="text-xl font-bold uppercase tracking-wider text-foreground italic">Módulos</h2>
+          <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wider text-foreground">Módulos</h2>
           <p className="text-[10px] text-muted-foreground uppercase tracking-wider mt-1">Selecione um módulo para análise detalhada</p>
-          <div className="h-px bg-gradient-to-r from-primary/40 to-transparent mt-2" />
+          <div className="h-px bg-gradient-to-r from-primary/30 to-transparent mt-2" />
         </div>
 
-        {/* Subject Cards */}
+        {/* Subject Cards + Audit Logs in same grid */}
         <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {subjects.map((s) => {
             const reg = dashboardService.getLatestRegistry(s);
@@ -97,7 +83,7 @@ const Index = () => {
               <button
                 key={s.config.id}
                 onClick={() => navigate(`/materia/${s.config.id}`)}
-                className="bg-card terminal-border rounded-lg p-5 text-left hover:glow-green-strong transition-all group relative overflow-hidden"
+                className="bg-card terminal-border rounded-lg p-5 text-left hover:border-primary/40 transition-all group relative overflow-hidden"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
@@ -105,7 +91,7 @@ const Index = () => {
                     <span className="px-1.5 py-0.5 text-[9px] border border-border text-muted-foreground uppercase tracking-wider">ACTV</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
+                    <span className="w-2 h-2 rounded-full bg-primary" />
                     <span className="text-[10px] text-primary uppercase tracking-wider">ON</span>
                   </div>
                 </div>
@@ -117,10 +103,10 @@ const Index = () => {
                     <div className="flex items-end justify-between mb-4">
                       <div>
                         <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Score</p>
-                        <p className="text-5xl font-display font-bold text-foreground group-hover:text-glow transition-all tracking-tight">{score}</p>
+                        <p className="text-4xl sm:text-5xl font-display font-bold text-foreground transition-all tracking-tight">{score}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-2xl font-display font-bold text-primary">{efficiency}%</p>
+                        <p className="text-xl sm:text-2xl font-display font-bold text-primary">{efficiency}%</p>
                         <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Efic.</p>
                       </div>
                     </div>
@@ -140,34 +126,31 @@ const Index = () => {
               </button>
             );
           })}
-        </section>
 
-        {/* Audit Logs Card */}
-        <section
-          onClick={() => navigate("/debug")}
-          className="bg-card terminal-border rounded-lg p-5 cursor-pointer hover:glow-green-strong transition-all"
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="px-2 py-0.5 text-[9px] font-bold border border-chart-highlight text-chart-highlight uppercase tracking-wider">SYS_DIAG</span>
-              <span className="px-1.5 py-0.5 text-[9px] border border-chart-highlight text-chart-highlight uppercase tracking-wider">WARN</span>
+          {/* Audit Logs Card — inside the grid */}
+          <button
+            onClick={() => navigate("/debug")}
+            className="bg-card terminal-border rounded-lg p-5 text-left hover:border-chart-highlight/40 transition-all"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <span className="px-2 py-0.5 text-[9px] font-bold border border-chart-highlight text-chart-highlight uppercase tracking-wider">SYS_DIAG</span>
+                <span className="px-1.5 py-0.5 text-[9px] border border-chart-highlight text-chart-highlight uppercase tracking-wider">WARN</span>
+              </div>
+              <AlertTriangle className="w-4 h-4 text-chart-highlight" />
             </div>
-          </div>
-          <div className="mt-3 flex items-center justify-between">
-            <div>
-              <p className="text-sm font-bold uppercase tracking-wider text-foreground">AUDIT LOGS</p>
-              <p className="text-[10px] text-muted-foreground mt-1">Logs Registrados</p>
-            </div>
-            <div className="text-right">
-              <p className="text-3xl font-display font-bold text-chart-highlight">{totalQuestions}</p>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-foreground mb-4">AUDIT LOGS</h3>
+            <div className="flex items-end justify-between mb-4">
+              <div>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">Logs Registrados</p>
+                <p className="text-4xl sm:text-5xl font-display font-bold text-chart-highlight">{totalQuestions}</p>
+              </div>
               <span className="px-1.5 py-0.5 text-[9px] border border-destructive text-destructive uppercase tracking-wider">[CRITICAL]</span>
             </div>
-          </div>
-          <div className="mt-3">
-            <span className="text-[10px] text-primary uppercase tracking-wider hover:text-foreground transition-colors">
+            <span className="text-[10px] text-primary uppercase tracking-wider">
               VISUALIZAR MATRIZ →
             </span>
-          </div>
+          </button>
         </section>
       </main>
 

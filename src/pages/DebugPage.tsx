@@ -10,14 +10,14 @@ import {
   Treemap,
 } from "recharts";
 
-const GREEN = "hsl(160, 100%, 50%)";
-const RED = "hsl(340, 90%, 55%)";
-const NEUTRAL = "hsl(215, 15%, 45%)";
-const YELLOW = "hsl(45, 93%, 58%)";
-const CYAN = "hsl(180, 100%, 50%)";
-const PINK = "hsl(330, 90%, 60%)";
-const GRID = "hsl(160,30%,15%)";
-const CARD_BG = "hsl(220,16%,9%)";
+const GREEN = "hsl(170, 45%, 38%)";
+const RED = "hsl(340, 70%, 48%)";
+const NEUTRAL = "hsl(215, 12%, 42%)";
+const YELLOW = "hsl(42, 60%, 50%)";
+const CYAN = "hsl(180, 40%, 40%)";
+const PINK = "hsl(330, 50%, 45%)";
+const GRID = "hsl(170,15%,13%)";
+const CARD_BG = "hsl(220,16%,7%)";
 
 const tooltipStyle = {
   background: CARD_BG,
@@ -35,10 +35,10 @@ const SUBJECT_COLORS: Record<string, string> = {
 };
 
 function getTreemapColor(level: number): string {
-  if (level < 500) return "hsl(340, 90%, 35%)";
-  if (level < 650) return "hsl(45, 93%, 35%)";
-  if (level < 800) return "hsl(160, 50%, 25%)";
-  return "hsl(160, 100%, 20%)";
+  if (level < 500) return "hsl(340, 50%, 30%)";
+  if (level < 650) return "hsl(42, 50%, 30%)";
+  if (level < 800) return "hsl(170, 35%, 22%)";
+  return "hsl(170, 40%, 18%)";
 }
 
 const DebugPage = () => {
@@ -47,7 +47,6 @@ const DebugPage = () => {
   const redacao = dashboardService.getSubject("redacao");
   const redacaoReg = redacao?.registries[redacao.registries.length - 1];
 
-  // Total errors across all objective subjects
   const { correct: totalCorrect, errors: totalErrors } = dashboardService.getTotalCorrectErrors();
   const totalFailures = totalErrors;
   const criticalZoneLevels = allSubjects.reduce((count, s) => {
@@ -59,7 +58,6 @@ const DebugPage = () => {
     ? ((totalCorrect / (totalCorrect + totalErrors)) * 100).toFixed(1)
     : "0";
 
-  // Find primary target (subject with most errors)
   const subjectErrors = allSubjects.map(s => {
     const reg = dashboardService.getLatestRegistry(s);
     const errs = reg ? reg.breakdown.reduce((a, b) => a + b.errors, 0) : 0;
@@ -67,7 +65,6 @@ const DebugPage = () => {
   }).sort((a, b) => b.errors - a.errors);
   const primaryTarget = subjectErrors[0]?.subject.config.title || "N/A";
 
-  // Treemap data
   const treemapData = allSubjects.map(s => {
     const reg = dashboardService.getLatestRegistry(s);
     if (!reg) return null;
@@ -81,14 +78,12 @@ const DebugPage = () => {
     };
   }).filter(Boolean);
 
-  // Radar urgency data
   const radarUrgencyData = allSubjects.map(s => {
     const reg = dashboardService.getLatestRegistry(s);
     const errs = reg ? reg.breakdown.reduce((a, b) => a + b.errors, 0) : 0;
     return { subject: s.config.shortName, errors: errs };
   });
 
-  // Distribution data (base/medio/topo per subject)
   const distributionData = allSubjects.map(s => {
     const reg = dashboardService.getLatestRegistry(s);
     if (!reg) return { name: s.config.shortName, base: 0, medio: 0, topo: 0 };
@@ -98,7 +93,6 @@ const DebugPage = () => {
     return { name: s.config.shortName, base, medio, topo };
   });
 
-  // CCI curves
   const allLevels = new Set<number>();
   allSubjects.forEach(s => {
     const reg = dashboardService.getLatestRegistry(s);
@@ -116,7 +110,6 @@ const DebugPage = () => {
     return point;
   });
 
-  // Intervention matrix
   const interventionData = allSubjects.map(s => {
     const reg = dashboardService.getLatestRegistry(s);
     if (!reg) return null;
@@ -138,7 +131,6 @@ const DebugPage = () => {
     };
   }).filter(Boolean).sort((a, b) => Number(b!.impact) - Number(a!.impact));
 
-  // Rescue logs
   const rescueLogs = allSubjects.map(s => {
     const reg = dashboardService.getLatestRegistry(s);
     if (!reg) return null;
@@ -155,63 +147,61 @@ const DebugPage = () => {
     };
   }).filter(Boolean);
 
-  // Redacao essay errors
   const essayErrors = redacaoReg?.essayErrors || [];
   const competencies = redacaoReg?.competencies || [];
 
-  // Gap per competency
   const gapData = competencies.map(c => ({
     name: c.id,
     gap: c.max - c.score,
   }));
 
   return (
-    <div className="min-h-screen bg-background scanline">
+    <div className="min-h-screen bg-background">
       <NavHeader onNavigate={navigate} />
 
-      <main className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+      <main className="max-w-6xl mx-auto px-4 py-6 sm:py-8 space-y-6">
 
         {/* Top KPIs */}
         <section className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          <div className="bg-card terminal-border rounded-lg p-4">
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">FALHAS TOTAIS</p>
-            <p className="text-4xl font-display font-bold text-destructive">{totalFailures}</p>
+          <div className="bg-card terminal-border rounded-lg p-3 sm:p-4">
+            <p className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider mb-1">FALHAS TOTAIS</p>
+            <p className="text-3xl sm:text-4xl font-display font-bold text-destructive">{totalFailures}</p>
             <p className="text-[9px] text-muted-foreground mt-1">LOG_COUNT</p>
           </div>
-          <div className="bg-card terminal-border rounded-lg p-4">
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">ZONA CRÍTICA</p>
-            <p className="text-4xl font-display font-bold text-chart-highlight">{criticalZoneLevels}</p>
+          <div className="bg-card terminal-border rounded-lg p-3 sm:p-4">
+            <p className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider mb-1">ZONA CRÍTICA</p>
+            <p className="text-3xl sm:text-4xl font-display font-bold text-chart-highlight">{criticalZoneLevels}</p>
             <p className="text-[9px] text-muted-foreground mt-1">NÍVEIS &lt; 650</p>
           </div>
-          <div className="bg-card terminal-border rounded-lg p-4">
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">INTEGRIDADE</p>
-            <p className="text-4xl font-display font-bold text-foreground">{integrity}%</p>
+          <div className="bg-card terminal-border rounded-lg p-3 sm:p-4">
+            <p className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider mb-1">INTEGRIDADE</p>
+            <p className="text-3xl sm:text-4xl font-display font-bold text-foreground">{integrity}%</p>
             <p className="text-[9px] text-muted-foreground mt-1">SYS_STATUS</p>
           </div>
-          <div className="bg-card terminal-border rounded-lg p-4">
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-1">ALVO PRIMÁRIO</p>
-            <p className="text-lg font-display font-bold text-destructive">{primaryTarget}</p>
+          <div className="bg-card terminal-border rounded-lg p-3 sm:p-4">
+            <p className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider mb-1">ALVO PRIMÁRIO</p>
+            <p className="text-sm sm:text-lg font-display font-bold text-destructive">{primaryTarget}</p>
             <p className="text-[9px] text-muted-foreground mt-1">ALPHA_TARGET</p>
           </div>
         </section>
 
         {/* Treemap */}
-        <section className="bg-card terminal-border rounded-lg p-5">
+        <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
           <div className="flex items-center gap-2 mb-4">
             <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">MAPA_DE_INTEGRIDADE</span>
           </div>
           <p className="text-[10px] text-muted-foreground mb-3">Visualização de densidade de erro (Treemap Analysis)</p>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={280}>
             <Treemap
               data={treemapData as any}
               dataKey="size"
               aspectRatio={4 / 3}
-              stroke="hsl(220,16%,6%)"
+              stroke="hsl(220,16%,4%)"
               content={<CustomTreemapContent />}
             />
           </ResponsiveContainer>
-          <div className="flex gap-4 mt-3 text-[9px] text-muted-foreground flex-wrap">
-            <span>MAPA DE CALOR (DENSIDADE):</span>
+          <div className="flex flex-wrap gap-3 sm:gap-4 mt-3 text-[9px] text-muted-foreground">
+            <span>MAPA DE CALOR:</span>
             <span className="text-destructive">● CRÍTICO (&lt;500)</span>
             <span className="text-chart-highlight">● ALERTA (&lt;650)</span>
             <span className="text-chart-correct">● ESTÁVEL (&lt;800)</span>
@@ -221,11 +211,11 @@ const DebugPage = () => {
 
         {/* Radar + Distribution */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <section className="bg-card terminal-border rounded-lg p-5">
+          <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
             <div className="flex items-center gap-2 mb-4">
               <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">RADAR_DE_URGÊNCIA</span>
             </div>
-            <ResponsiveContainer width="100%" height={280}>
+            <ResponsiveContainer width="100%" height={260}>
               <RadarChart data={radarUrgencyData}>
                 <PolarGrid stroke={GRID} />
                 <PolarAngleAxis dataKey="subject" tick={{ fontSize: 9, fill: NEUTRAL }} />
@@ -235,11 +225,11 @@ const DebugPage = () => {
             </ResponsiveContainer>
           </section>
 
-          <section className="bg-card terminal-border rounded-lg p-5">
+          <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
             <div className="flex items-center gap-2 mb-4">
               <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">DISTRIBUIÇÃO_DE_CARGA</span>
             </div>
-            <ResponsiveContainer width="100%" height={280}>
+            <ResponsiveContainer width="100%" height={260}>
               <BarChart data={distributionData}>
                 <CartesianGrid strokeDasharray="3 3" stroke={GRID} />
                 <XAxis dataKey="name" tick={{ fontSize: 9, fill: NEUTRAL }} />
@@ -254,11 +244,11 @@ const DebugPage = () => {
         </div>
 
         {/* CCI Curves */}
-        <section className="bg-card terminal-border rounded-lg p-5">
+        <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
           <div className="flex items-center gap-2 mb-4">
             <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">CCI_PERFORMANCE_CURVES</span>
           </div>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={280}>
             <LineChart data={cciData}>
               <CartesianGrid strokeDasharray="3 3" stroke={GRID} />
               <XAxis dataKey="level" tick={{ fontSize: 9, fill: NEUTRAL }} />
@@ -276,7 +266,7 @@ const DebugPage = () => {
               ))}
             </LineChart>
           </ResponsiveContainer>
-          <div className="flex gap-4 mt-2 text-[9px]">
+          <div className="flex flex-wrap gap-3 sm:gap-4 mt-2 text-[9px]">
             {allSubjects.map(s => (
               <span key={s.config.id} className="flex items-center gap-1">
                 <span className="w-3 h-0.5 inline-block" style={{ background: SUBJECT_COLORS[s.config.id] }} />
@@ -288,14 +278,13 @@ const DebugPage = () => {
 
         {/* Essay Audit */}
         {redacaoReg && (
-          <section className="bg-card terminal-border rounded-lg p-5">
+          <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
             <div className="flex items-center gap-2 mb-4">
               <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">AUDITORIA: PRODUÇÃO TEXTUAL</span>
             </div>
             <p className="text-[10px] text-muted-foreground mb-3">Análise de falhas estruturais e gramaticais</p>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              {/* Gap per competency */}
               <div>
                 <p className="text-[10px] text-muted-foreground mb-2">GAP por Competência (Alvo: 200)</p>
                 <ResponsiveContainer width="100%" height={160}>
@@ -309,7 +298,6 @@ const DebugPage = () => {
                 </ResponsiveContainer>
               </div>
 
-              {/* Deviation matrix */}
               <div>
                 <p className="text-[10px] text-muted-foreground mb-2">Matriz de Desvios</p>
                 <div className="space-y-2">
@@ -332,13 +320,13 @@ const DebugPage = () => {
         )}
 
         {/* Intervention Matrix */}
-        <section className="bg-card terminal-border rounded-lg p-5">
+        <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
           <div className="flex items-center gap-2 mb-4">
             <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">MATRIZ_DE_INTERVENÇÃO</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {interventionData.map((item, i) => (
-              <div key={i} className="bg-secondary/50 terminal-border rounded-lg p-4">
+              <div key={i} className="bg-secondary/30 terminal-border rounded-lg p-3 sm:p-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-[9px] text-primary uppercase tracking-wider">PRIORIDADE #{i + 1}</span>
                 </div>
@@ -367,14 +355,14 @@ const DebugPage = () => {
         </section>
 
         {/* Recovery Logs */}
-        <section className="bg-card terminal-border rounded-lg p-5">
+        <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
           <div className="flex items-center gap-2 mb-4">
             <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">LOGS_DE_RESGATE</span>
           </div>
           <div className="space-y-4">
             {rescueLogs.map((log, i) => (
-              <div key={i} className="border-l-2 border-destructive/50 pl-4">
-                <div className="flex items-center gap-3 mb-1">
+              <div key={i} className="border-l-2 border-destructive/40 pl-4">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-1">
                   <span className="text-[10px] text-muted-foreground">LOG_ID: {String(i + 1).padStart(3, "0")}</span>
                   <span className="text-xs font-bold text-foreground">{log!.subject}</span>
                   <span className={`px-1.5 py-0.5 text-[9px] border ${log!.severity === "CRÍTICO" ? "border-destructive text-destructive" : "border-chart-highlight text-chart-highlight"}`}>
@@ -394,15 +382,15 @@ const DebugPage = () => {
           </div>
         </section>
 
-        {/* Black Box Recovery - Question logs */}
-        <section className="bg-card terminal-border rounded-lg p-5">
+        {/* Black Box Recovery */}
+        <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
           <div className="flex items-center gap-2 mb-4">
             <span className="px-2 py-0.5 text-[9px] font-bold border border-primary text-primary uppercase tracking-wider">BLACK_BOX_RECOVERY: DETALHAMENTO</span>
           </div>
           <div className="space-y-6">
             {rescueLogs.filter(l => l!.questionLog.length > 0).map((log) => (
               <div key={log!.id}>
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 gap-1">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-bold text-foreground">{log!.subject}</span>
                     <span className="text-[9px] text-muted-foreground">LOG_ID: {log!.id.toUpperCase()}</span>
@@ -410,7 +398,7 @@ const DebugPage = () => {
                   <span className="text-[10px] text-muted-foreground">Total: {log!.totalItems} Itens</span>
                 </div>
                 <div className="overflow-x-auto max-h-[400px] overflow-y-auto">
-                  <table className="w-full text-xs">
+                  <table className="w-full text-xs min-w-[400px]">
                     <thead className="sticky top-0 bg-card">
                       <tr className="text-muted-foreground border-b border-border text-[10px] uppercase tracking-wider">
                         <th className="text-left py-2">QUESTÃO</th>
@@ -455,17 +443,16 @@ const DebugPage = () => {
   );
 };
 
-// Custom treemap content
 function CustomTreemapContent(props: any) {
   const { x, y, width, height, name, depth, level } = props;
   if (width < 20 || height < 20) return null;
-  const fill = depth === 1 ? "hsl(220,16%,14%)" : getTreemapColor(level || 500);
+  const fill = depth === 1 ? "hsl(220,16%,12%)" : getTreemapColor(level || 500);
 
   return (
     <g>
-      <rect x={x} y={y} width={width} height={height} fill={fill} stroke="hsl(220,16%,6%)" strokeWidth={2} />
+      <rect x={x} y={y} width={width} height={height} fill={fill} stroke="hsl(220,16%,4%)" strokeWidth={2} />
       {width > 40 && height > 20 && (
-        <text x={x + width / 2} y={y + height / 2} textAnchor="middle" dominantBaseline="middle" fill="hsl(160,100%,95%)" fontSize={Math.min(10, width / 6)} fontFamily="JetBrains Mono">
+        <text x={x + width / 2} y={y + height / 2} textAnchor="middle" dominantBaseline="middle" fill="hsl(160,20%,85%)" fontSize={Math.min(10, width / 6)} fontFamily="JetBrains Mono">
           {name}
         </text>
       )}
