@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Globe, BookOpen, Calculator, Microscope, PenTool, Wifi, Clock, Menu, X } from "lucide-react";
+import { Globe, BookOpen, Calculator, Microscope, PenTool, Wifi, Clock, Menu, X, Bug } from "lucide-react";
 import { dashboardService } from "@/services/dashboardService";
 
 const subjectIcons: Record<string, React.ReactNode> = {
@@ -60,6 +60,17 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
                   {s.config.shortName}
                 </button>
               ))}
+              <button
+                onClick={() => handleNav("/debug")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider transition-colors rounded ${
+                  currentId === "debug"
+                    ? "text-destructive bg-destructive/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
+              >
+                <Bug className="w-4 h-4" />
+                DEBUG
+              </button>
             </nav>
           </div>
 
@@ -111,6 +122,17 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
                 {s.config.shortName}
               </button>
             ))}
+            <button
+              onClick={() => handleNav("/debug")}
+              className={`flex items-center gap-3 px-4 py-3 text-sm uppercase tracking-wider transition-colors rounded-lg ${
+                currentId === "debug"
+                  ? "text-destructive bg-destructive/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              }`}
+            >
+              <Bug className="w-4 h-4" />
+              DEBUG
+            </button>
           </nav>
           <div className="px-4 pt-4 border-t border-border mx-4 flex items-center gap-3 text-xs text-muted-foreground">
             <span className="flex items-center gap-1">

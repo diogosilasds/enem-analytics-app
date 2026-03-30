@@ -157,7 +157,7 @@ const DebugPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <NavHeader onNavigate={navigate} />
+      <NavHeader currentId="debug" onNavigate={navigate} />
 
       <main className="max-w-6xl mx-auto px-4 py-6 sm:py-8 space-y-6">
 

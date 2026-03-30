@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { dashboardService } from "@/services/dashboardService";
 
 export function useDashboardOverview() {
@@ -12,7 +12,14 @@ export function useDashboardOverview() {
 
 export function useSubjectDetail(id: string) {
   const subject = dashboardService.getSubject(id);
-  const reg = subject ? dashboardService.getLatestRegistry(subject) : null;
+  const [registryIndex, setRegistryIndex] = useState(0);
+
+  const registries = subject?.registries || [];
+  // Default to latest (last) registry
+  const activeIndex = registries.length > 0
+    ? Math.min(registryIndex, registries.length - 1)
+    : 0;
+  const reg = registries.length > 0 ? registries[registries.length - 1 - activeIndex] || registries[registries.length - 1] : null;
 
   const stats = useMemo(() => {
     if (!reg) return null;
@@ -24,5 +31,5 @@ export function useSubjectDetail(id: string) {
     };
   }, [reg]);
 
-  return { subject, reg, stats };
+  return { subject, reg, stats, registries, registryIndex: activeIndex, setRegistryIndex };
 }
