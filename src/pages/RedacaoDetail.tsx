@@ -28,6 +28,7 @@ const tooltipStyle = {
 const RedacaoDetail = () => {
   const navigate = useNavigate();
   const subject = dashboardService.getSubject("redacao");
+  const [selectedRegIdx, setSelectedRegIdx] = useState(0);
 
   if (!subject || subject.registries.length === 0) {
     return (
@@ -40,8 +41,8 @@ const RedacaoDetail = () => {
     );
   }
 
-  const [selectedRegIdx, setSelectedRegIdx] = useState(subject.registries.length - 1);
-  const reg = subject.registries[selectedRegIdx] || subject.registries[subject.registries.length - 1];
+  const safeIdx = Math.min(selectedRegIdx, subject.registries.length - 1);
+  const reg = subject.registries[safeIdx];
   const competencies = reg.competencies || [];
   const totalScore = reg.score;
   const goal = subject.config.goal;
