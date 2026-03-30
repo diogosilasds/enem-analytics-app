@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSubjectDetail } from "@/hooks/useDashboard";
 import { NavHeader } from "@/components/dashboard/NavHeader";
 import { Footer } from "@/components/dashboard/Footer";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Calendar, ChevronDown } from "lucide-react";
 import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
