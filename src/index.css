@@ -2,53 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 2%;
-    --foreground: 160 20% 90%;
+    --background: 240 20% 1.5%;
+    --foreground: 0 0% 94%;
 
-    --card: 220 16% 7%;
-    --card-foreground: 160 20% 90%;
+    --card: 240 15% 4%;
+    --card-foreground: 0 0% 94%;
 
-    --popover: 220 16% 7%;
-    --popover-foreground: 160 20% 90%;
+    --popover: 240 15% 4%;
+    --popover-foreground: 0 0% 94%;
 
-    --primary: 170 45% 38%;
-    --primary-foreground: 220 16% 4%;
+    --primary: 155 100% 50%;
+    --primary-foreground: 240 20% 2%;
 
-    --secondary: 220 14% 12%;
-    --secondary-foreground: 170 20% 60%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 155 50% 60%;
 
-    --muted: 220 12% 10%;
-    --muted-foreground: 215 12% 42%;
+    --muted: 0 0% 8%;
+    --muted-foreground: 215 16% 60%;
 
-    --accent: 170 45% 38%;
-    --accent-foreground: 220 16% 4%;
+    --accent: 155 100% 50%;
+    --accent-foreground: 240 20% 2%;
 
-    --destructive: 340 70% 48%;
+    --destructive: 345 100% 40%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 170 15% 13%;
-    --input: 220 14% 16%;
-    --ring: 170 45% 38%;
+    --border: 0 0% 20%;
+    --input: 0 0% 12%;
+    --ring: 155 100% 50%;
 
     --radius: 0.5rem;
 
-    --chart-correct: 160 45% 42%;
-    --chart-error: 340 70% 48%;
-    --chart-neutral: 215 12% 42%;
-    --chart-highlight: 42 60% 50%;
+    --chart-correct: 155 100% 50%;
+    --chart-error: 345 100% 40%;
+    --chart-neutral: 0 0% 15%;
+    --chart-highlight: 55 95% 47%;
 
-    --sidebar-background: 220 16% 5%;
-    --sidebar-foreground: 160 20% 90%;
-    --sidebar-primary: 170 45% 38%;
-    --sidebar-primary-foreground: 220 16% 4%;
-    --sidebar-accent: 220 16% 12%;
-    --sidebar-accent-foreground: 160 20% 90%;
-    --sidebar-border: 170 15% 13%;
-    --sidebar-ring: 170 45% 38%;
+    --color-cyan: #00f3ff;
+    --color-pink: #ff0055;
+    --color-yellow: #f3e600;
+    --color-purple: #bd00ff;
+
+    --sidebar-background: 240 15% 3%;
+    --sidebar-foreground: 0 0% 94%;
+    --sidebar-primary: 155 100% 50%;
+    --sidebar-primary-foreground: 240 20% 2%;
+    --sidebar-accent: 240 15% 8%;
+    --sidebar-accent-foreground: 0 0% 94%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 155 100% 50%;
   }
 }
 
@@ -59,9 +64,40 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+    background-image:
+      linear-gradient(rgba(0, 243, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 243, 255, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center top;
+  }
+
+  /* CRT Scanline overlay */
+  body::after {
+    content: "";
+    display: block;
+    position: fixed;
+    inset: 0;
+    background:
+      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.08) 50%),
+      linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+    background-size: 100% 2px, 3px 100%;
+    z-index: 9999;
+    pointer-events: none;
+    mix-blend-mode: hard-light;
+    opacity: 0.5;
   }
 }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #333; }
+::-webkit-scrollbar-thumb:hover { background: hsl(155, 100%, 50%); box-shadow: 0 0 8px hsl(155, 100%, 50%); }
+
+/* Recharts fix */
+.recharts-wrapper { outline: none !important; }
 
 @layer utilities {
   .terminal-border {
@@ -79,6 +115,112 @@
   }
 
   .font-display {
-    font-family: 'Share Tech Mono', 'JetBrains Mono', monospace;
+    font-family: 'Orbitron', sans-serif !important;
   }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace !important;
+  }
+
+  .font-body {
+    font-family: 'Rajdhani', sans-serif !important;
+  }
+
+  /* Cyber clipped panel */
+  .cyber-shape {
+    clip-path: polygon(
+      10px 0,
+      100% 0,
+      100% calc(100% - 10px),
+      calc(100% - 10px) 100%,
+      0 100%,
+      0 10px
+    );
+    position: relative;
+  }
+
+  .cyber-shape::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: hsl(var(--card));
+    z-index: -1;
+  }
+
+  /* Tech corner decorations */
+  .tech-border-corner {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1px solid hsl(var(--primary));
+    transition: all 0.3s ease;
+  }
+  .tech-corner-tl { top: -1px; left: -1px; border-bottom: none; border-right: none; }
+  .tech-corner-tr { top: -1px; right: -1px; border-bottom: none; border-left: none; }
+  .tech-corner-bl { bottom: -1px; left: -1px; border-top: none; border-right: none; }
+  .tech-corner-br { bottom: -1px; right: -1px; border-top: none; border-left: none; }
+
+  /* Scanner line */
+  .scanner-line {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 20%;
+    background: linear-gradient(to bottom, transparent, hsl(var(--primary)), transparent);
+    opacity: 0.05;
+    animation: scan-vertical 3s linear infinite;
+    pointer-events: none;
+  }
+
+  /* Glitch text */
+  .glitch-text {
+    position: relative;
+  }
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+  .glitch-text::before {
+    left: 2px;
+    text-shadow: -1px 0 #ff00c1;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+  }
+  .glitch-text::after {
+    left: -2px;
+    text-shadow: -1px 0 #00fff9;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+  }
+
+  /* Circuit pattern bg */
+  .bg-circuit-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 5 L15 5 L15 15' stroke='%23ffffff' stroke-width='1' fill='none' opacity='0.05'/%3E%3Cpath d='M45 45 L55 45 L55 55' stroke='%23ffffff' stroke-width='1' fill='none' opacity='0.05'/%3E%3Ccircle cx='15' cy='15' r='1.5' fill='%23ffffff' opacity='0.05'/%3E%3C/svg%3E");
+    background-size: 60px 60px;
+  }
+}
+
+@keyframes scan-vertical {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(38px, 9999px, 34px, 0); }
+  5% { clip: rect(87px, 9999px, 96px, 0); }
+  10% { clip: rect(10px, 9999px, 3px, 0); }
+  15% { clip: rect(65px, 9999px, 86px, 0); }
+  20% { clip: rect(22px, 9999px, 9px, 0); }
+  100% { clip: rect(54px, 9999px, 12px, 0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(12px, 9999px, 58px, 0); }
+  5% { clip: rect(32px, 9999px, 15px, 0); }
+  10% { clip: rect(84px, 9999px, 4px, 0); }
+  15% { clip: rect(98px, 9999px, 7px, 0); }
+  20% { clip: rect(2px, 9999px, 54px, 0); }
+  100% { clip: rect(48px, 9999px, 63px, 0); }
 }

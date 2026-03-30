@@ -14,15 +14,20 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["JetBrains Mono", "monospace"],
+        sans: ["Rajdhani", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
-        display: ["Share Tech Mono", "JetBrains Mono", "monospace"],
+        display: ["Orbitron", "sans-serif"],
+        body: ["Rajdhani", "sans-serif"],
       },
       colors: {
         "chart-correct": "hsl(var(--chart-correct))",
         "chart-error": "hsl(var(--chart-error))",
         "chart-neutral": "hsl(var(--chart-neutral))",
         "chart-highlight": "hsl(var(--chart-highlight))",
+        "neon-cyan": "var(--color-cyan)",
+        "neon-pink": "var(--color-pink)",
+        "neon-yellow": "var(--color-yellow)",
+        "neon-purple": "var(--color-purple)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
