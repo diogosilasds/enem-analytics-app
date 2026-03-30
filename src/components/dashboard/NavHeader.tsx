@@ -97,7 +97,7 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
 
       {/* Mobile overlay menu */}
       {menuOpen && (
-        <div className="fixed inset-0 z-50 bg-background/98 lg:hidden">
+        <div className="fixed inset-0 z-50 bg-background flex flex-col lg:hidden">
           <div className="flex items-center justify-between px-4 py-3 border-b border-border">
             <button onClick={() => handleNav("/")} className="flex items-center gap-2">
               <span className="text-primary text-lg">›_</span>
