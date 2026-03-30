@@ -43,8 +43,9 @@ function getStatusLabel(rate: number) {
 const SubjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { subject, reg, stats } = useSubjectDetail(id || "");
-
+  const { subject, reg, stats, registries } = useSubjectDetail(id || "");
+  const [selectedRegIdx, setSelectedRegIdx] = useState(registries.length > 0 ? registries.length - 1 : 0);
+  const activeReg = registries[selectedRegIdx] || reg;
   if (!subject || !reg || !stats) {
     return (
       <div className="min-h-screen bg-background">
