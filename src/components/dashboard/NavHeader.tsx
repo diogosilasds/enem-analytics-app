@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Globe, BookOpen, Calculator, Microscope, PenTool, Wifi, Clock, Menu, X } from "lucide-react";
+import { Globe, BookOpen, Calculator, Microscope, PenTool, Wifi, Clock, Menu, X, Bug } from "lucide-react";
 import { dashboardService } from "@/services/dashboardService";
 
 const subjectIcons: Record<string, React.ReactNode> = {
