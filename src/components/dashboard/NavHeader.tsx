@@ -97,7 +97,7 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
 
       {/* Mobile overlay menu */}
       {menuOpen && (
-        <div className="fixed inset-0 z-50 bg-background/98 lg:hidden">
+        <div className="fixed inset-0 z-50 bg-background flex flex-col lg:hidden">
           <div className="flex items-center justify-between px-4 py-3 border-b border-border">
             <button onClick={() => handleNav("/")} className="flex items-center gap-2">
               <span className="text-primary text-lg">›_</span>
@@ -107,7 +107,7 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
               <X className="w-5 h-5" />
             </button>
           </div>
-          <nav className="flex flex-col px-4 py-6 gap-1">
+          <nav className="flex flex-col items-center justify-center flex-1 px-4 gap-2">
             {subjects.map((s) => (
               <button
                 key={s.config.id}
