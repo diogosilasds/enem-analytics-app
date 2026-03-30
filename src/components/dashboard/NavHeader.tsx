@@ -60,6 +60,17 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
                   {s.config.shortName}
                 </button>
               ))}
+              <button
+                onClick={() => handleNav("/debug")}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider transition-colors rounded ${
+                  currentId === "debug"
+                    ? "text-destructive bg-destructive/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
+              >
+                <Bug className="w-4 h-4" />
+                DEBUG
+              </button>
             </nav>
           </div>
 
