@@ -107,7 +107,7 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
               <X className="w-5 h-5" />
             </button>
           </div>
-          <nav className="flex flex-col px-4 py-6 gap-1">
+          <nav className="flex flex-col items-center justify-center flex-1 px-4 gap-2">
             {subjects.map((s) => (
               <button
                 key={s.config.id}
