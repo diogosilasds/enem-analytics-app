@@ -79,11 +79,37 @@ const RedacaoDetail = () => {
       <NavHeader currentId="redacao" onNavigate={navigate} />
 
       <div className="max-w-6xl mx-auto px-4 pt-6 pb-4">
-        <div className="flex items-center gap-3 mb-2">
-          <button onClick={() => navigate("/")} className="text-muted-foreground hover:text-primary transition-colors">
-            <ArrowLeft className="w-5 h-5" />
-          </button>
-          <span className="text-primary text-base sm:text-lg font-bold">SECTION://REDAÇÃO</span>
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-2">
+          <div className="flex items-center gap-3">
+            <button onClick={() => navigate("/")} className="text-muted-foreground hover:text-primary transition-colors">
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+            <span className="text-primary text-base sm:text-lg font-bold">SECTION://REDAÇÃO</span>
+          </div>
+
+          {/* Registry selector */}
+          <div className="flex items-center gap-2 ml-8 sm:ml-auto">
+            {subject.registries.map((r, idx) => {
+              const year = r.examRef.match(/\d{4}/)?.[0] || "????";
+              const dateFormatted = new Date(r.date).toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "2-digit" });
+              const isActive = idx === safeIdx;
+              return (
+                <button
+                  key={r.id}
+                  onClick={() => setSelectedRegIdx(idx)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase tracking-wider border rounded transition-colors ${
+                    isActive
+                      ? "border-primary bg-primary/10 text-primary"
+                      : "border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                  }`}
+                >
+                  <Calendar className="w-3 h-3" />
+                  <span className="font-bold">{year}</span>
+                  <span className="hidden sm:inline text-[10px] opacity-70">• {dateFormatted}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
         <div className="flex flex-wrap items-center gap-3 sm:gap-4 ml-8 sm:ml-10">
           <span className="flex items-center gap-1.5 text-[10px] text-primary">
@@ -91,7 +117,7 @@ const RedacaoDetail = () => {
             ACCESS://GRANTED
           </span>
           <span className="px-2 py-0.5 text-[10px] border border-border text-muted-foreground uppercase tracking-wider">
-            TERMINAL ID: 2026
+            TERMINAL ID: {reg.examRef.match(/\d{4}/)?.[0] || "2026"}
           </span>
           <span className="px-2 py-0.5 text-[10px] border border-primary/30 text-primary uppercase tracking-wider">
             SYNC_RDY
