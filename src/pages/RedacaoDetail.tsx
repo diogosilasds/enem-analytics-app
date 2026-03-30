@@ -40,7 +40,8 @@ const RedacaoDetail = () => {
     );
   }
 
-  const reg = subject.registries[subject.registries.length - 1];
+  const [selectedRegIdx, setSelectedRegIdx] = useState(subject.registries.length - 1);
+  const reg = subject.registries[selectedRegIdx] || subject.registries[subject.registries.length - 1];
   const competencies = reg.competencies || [];
   const totalScore = reg.score;
   const goal = subject.config.goal;
