@@ -1,54 +1,118 @@
 
 
-## Plano: Responsividade, Redesign e Ajustes Estruturais
+## Plano: Recriar Estilo Front-End Idêntico às Imagens de Referência
 
-### Resumo das mudanças
+As imagens mostram um design cyberpunk dark com neon verde (#00ff9f), fundo escuro profundo, tipografia Orbitron/JetBrains Mono, e cards com bordas finas. O site atual já tem a estrutura, mas precisa de ajustes visuais para bater com as referências.
 
-1. **Menu hamburger em telas pequenas/médias** — NavHeader ganha um botão hamburger (`md:` breakpoint) que abre/fecha um menu mobile overlay com todos os links de navegação. O nav desktop fica `hidden` abaixo de `lg`.
+### Mudanças por arquivo
 
-2. **Redesign sem neon** — Substituir a paleta verde neon por tons mais frios e sutis:
-   - Primary: de `160 100% 50%` (verde neon) para `160 60% 45%` (verde acinzentado/teal)
-   - Remover `text-glow`, `glow-green`, `glow-green-strong`, `animate-pulse-glow` dos componentes
-   - Remover efeito `scanline` do body das páginas
-   - Manter a estética terminal/dark mas com aparência mais "matte" e profissional
-   - Atualizar cores dos gráficos (GREEN, CYAN etc.) em SubjectDetail, RedacaoDetail e DebugPage para tons menos saturados
+---
 
-3. **Remover botão "VISÃO GERAL"** — No NavHeader, remover o botão explícito "VISÃO GERAL". A logo "ENEM_LOG" já navega para `/` via `onNavigate("/")`.
+**1. `src/index.css`** — Restaurar paleta neon cyberpunk
 
-4. **Audit Logs dentro da grid de Módulos** — Mover o card AUDIT LOGS da seção separada para dentro da grid `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` junto com os 5 cards de matérias (totalizando 6 cards na grid, 3x2).
+Substituir as variáveis CSS atuais (que foram suavizadas para teal matte) de volta para a paleta neon original conforme o CSS fornecido pelo usuário:
+- `--primary: 155 100% 50%` (verde neon)
+- `--accent: 155 100% 50%`
+- `--background: 240 20% 1.5%`
+- `--card: 240 15% 4%`
+- `--border: 0 0% 20%`
+- Restaurar efeito CRT scanline com opacidade 0.6
+- Restaurar scrollbar neon com glow no hover
+- Manter utilitários: `.terminal-border`, `.progress-segmented`, `.cyber-shape`, `.scanner-line`, `.glitch-text`, `.bg-circuit-pattern`
+- Adicionar `.clip-chip` do CSS fornecido
 
-5. **Responsividade geral** — Revisar todas as páginas para garantir que KPIs, gráficos e tabelas se adaptam bem em mobile (stack vertical, overflow-x-auto, font-size ajustado).
+---
 
-### Arquivos a modificar
+**2. `src/lib/theme.ts`** — Atualizar cores JS para neon
 
-| Arquivo | Mudança |
-|---------|---------|
-| `src/index.css` | Ajustar variáveis CSS de cor (primary menos saturado), remover/suavizar utilities neon |
-| `src/components/dashboard/NavHeader.tsx` | Adicionar hamburger menu com state toggle; remover botão "VISÃO GERAL"; remover botão DEBUG_MODE do nav (já vai estar na home); breakpoint `lg` para nav desktop |
-| `src/pages/Index.tsx` | Mover card AUDIT LOGS para dentro da grid de módulos; remover mobile nav duplicado; remover classes `scanline`/`glow-green` |
-| `src/pages/SubjectDetail.tsx` | Remover `scanline`, ajustar constantes de cor, responsividade dos KPIs |
-| `src/pages/RedacaoDetail.tsx` | Mesmas remoções de scanline/neon e ajustes de cor |
-| `src/pages/DebugPage.tsx` | Mesmas remoções e ajustes |
-| `src/components/dashboard/Footer.tsx` | Ajustes menores de responsividade |
+Usar as cores exatas fornecidas:
+- `accent: '#00ff9f'`, `cyan: '#00f3ff'`, `pink: '#ff0055'`, `yellow: '#f3e600'`, `purple: '#bd00ff'`
+- `grid: 'rgba(0, 243, 255, 0.07)'`
+- `bg: '#030304'`, `cardBg: '#0a0a0c'`
 
-### Detalhes técnicos
+---
 
-**NavHeader — Menu hamburger:**
-- State local `const [menuOpen, setMenuOpen] = useState(false)`
-- Botão `Menu`/`X` do lucide-react visível em `lg:hidden`
-- Painel mobile: `fixed inset-0 z-50 bg-background` com links empilhados verticalmente
-- Nav desktop: `hidden lg:flex`
+**3. `src/pages/SubjectDetail.tsx`** — Cores dos gráficos neon
 
-**Paleta de cores atualizada (index.css):**
-```css
---primary: 170 50% 40%;        /* teal matte */
---accent: 170 50% 40%;
---ring: 170 50% 40%;
---border: 170 20% 15%;
---chart-correct: 160 50% 45%;
---chart-highlight: 45 70% 55%;
-```
+Atualizar as constantes de cor no topo:
+- `GREEN` → `#00ff9f`
+- `RED` → `#ff0055`
+- `YELLOW` → `#f3e600`
+- `CYAN` → `#00f3ff`
+- `NEUTRAL` → `#94a3b8`
+- `GRID` → `rgba(0, 243, 255, 0.07)`
+- `CARD_BG` → `#0a0a0c`
 
-**Grid de módulos (Index.tsx):**
-O card AUDIT LOGS entra como 6o item na mesma `<section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">`, removendo a seção separada.
+Ajustar o header da página para bater com a 3a imagem de referência:
+- Título `SECTION://LINGUAGENS` em verde neon grande com efeito glitch
+- Tags `ACCESS://GRANTED`, `TERMINAL ID: 2010`, `SYNC_RDY` alinhadas à direita
+- Linha decorativa com pontos/diamantes abaixo do título
+- Seletores de ano/data no NavHeader (já existem)
+
+Nos KPI cards: adicionar ícones pequenos (Activity, Target, TrendingUp, Hash, AlertTriangle, Clock) e linha colorida horizontal sob o valor.
+
+---
+
+**4. `src/pages/RedacaoDetail.tsx`** — Mesmas cores neon
+
+Atualizar constantes de cor para neon. Mesma estrutura, cores vibrantes.
+
+---
+
+**5. `src/pages/DebugPage.tsx`** — Mesmas cores neon
+
+Atualizar constantes de cor para neon.
+
+---
+
+**6. `src/pages/Index.tsx`** — Ajustar para bater com imagens 1 e 2
+
+Referência mostra:
+- Header "CENTRAL DE INTELIGÊNCIA" / "VISÃO GERAL DO SISTEMA" em bold uppercase
+- Painel de média: número grande "685.4" branco com "/ 780" cinza, barra segmentada verde neon
+- Cards KPI (Q_TOT, ACK, ERR) com bordas finas e tags coloridas
+- Grid de módulos 3x2 com cards que têm: MOD_01 ACTV ON, título bold, SCORE grande, eficiência em verde neon, barra [SYS_LOAD]
+- Card AUDIT LOGS com tag WARN em amarelo/vermelho, número em vermelho neon, botão "VISUALIZAR MATRIZ →"
+
+Os cards já estão corretos na estrutura, apenas garantir que as cores e fontes batem.
+
+---
+
+**7. `src/components/dashboard/NavHeader.tsx`** — Ajustar para imagens de referência
+
+Desktop (imagem 2): 
+- Logo `ENEM_LOG` com `>_` prefix em verde
+- Nav com ícones + labels curtos: HUM, LIN, MAT, NAT, RED, DBG
+- Botão "SAIR" com ícone à direita (borda verde, estilo outline)
+- Remover NET: 5G e relógio
+
+Mobile (imagem 5):
+- Hamburger menu, overlay já funciona
+
+Na página de matéria (imagem 3):
+- Nav mostra os seletores de ano/data integrados ao header
+
+---
+
+**8. `tailwind.config.ts`** — Garantir cores neon
+
+Atualizar cores de volta:
+- `--chart-correct: 155 100% 50%`
+- `--chart-highlight: 55 95% 47%`
+- `--chart-error / destructive: 345 100% 40%`
+
+---
+
+### Resumo de arquivos
+
+| Arquivo | O que muda |
+|---------|-----------|
+| `src/index.css` | Paleta neon, scanlines, scrollbar glow |
+| `src/lib/theme.ts` | Cores JS neon |
+| `tailwind.config.ts` | Variáveis CSS neon |
+| `src/components/dashboard/NavHeader.tsx` | Botão SAIR, remover clock/net, labels curtos |
+| `src/pages/Index.tsx` | Ajustar tipografia e cores |
+| `src/pages/SubjectDetail.tsx` | Cores neon, header com glitch, KPI com ícones e linhas |
+| `src/pages/RedacaoDetail.tsx` | Cores neon |
+| `src/pages/DebugPage.tsx` | Cores neon |
 
