@@ -1,19 +1,22 @@
 import { useState } from "react";
-import { Globe, BookOpen, Calculator, Microscope, PenTool, Wifi, Clock, Menu, X, Bug, LayoutGrid, Settings } from "lucide-react";
+import { Globe, BookOpen, Calculator, Microscope, PenTool, Menu, X, Bug, LayoutGrid, LogOut } from "lucide-react";
 import { dashboardService } from "@/services/dashboardService";
 
 const subjectIcons: Record<string, React.ReactNode> = {
-  humanas: <Globe className="w-5 h-5" />,
-  linguagens: <BookOpen className="w-5 h-5" />,
-  matematica: <Calculator className="w-5 h-5" />,
-  natureza: <Microscope className="w-5 h-5" />,
-  redacao: <PenTool className="w-5 h-5" />,
+  humanas: <Globe className="w-4 h-4" />,
+  linguagens: <BookOpen className="w-4 h-4" />,
+  matematica: <Calculator className="w-4 h-4" />,
+  natureza: <Microscope className="w-4 h-4" />,
+  redacao: <PenTool className="w-4 h-4" />,
 };
 
-function getCurrentTime() {
-  const now = new Date();
-  return `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
-}
+const shortLabels: Record<string, string> = {
+  humanas: "HUM",
+  linguagens: "LIN",
+  matematica: "MAT",
+  natureza: "NAT",
+  redacao: "RED",
+};
 
 interface NavHeaderProps {
   currentId?: string;
@@ -42,7 +45,7 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
                 <h1 className="text-base font-bold tracking-wider text-foreground font-display">
                   ENEM_LOG<span className="text-primary ml-1">.</span>
                 </h1>
-                <p className="text-[10px] text-primary/70 uppercase tracking-[0.3em] font-mono">Analytics System</p>
+                <p className="text-[9px] text-primary/70 uppercase tracking-[0.3em] font-mono">Analytics System</p>
               </div>
             </button>
 
@@ -52,39 +55,38 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
                 <button
                   key={s.config.id}
                   onClick={() => handleNav(`/materia/${s.config.id}`)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider transition-colors rounded font-mono ${
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] uppercase tracking-wider transition-colors rounded font-mono ${
                     s.config.id === currentId
                       ? "text-primary bg-primary/10"
                       : "text-muted-foreground hover:text-foreground hover:bg-muted"
                   }`}
                 >
                   {subjectIcons[s.config.id]}
-                  {s.config.shortName}
+                  {shortLabels[s.config.id] || s.config.shortName}
                 </button>
               ))}
               <button
                 onClick={() => handleNav("/debug")}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs uppercase tracking-wider transition-colors rounded font-mono ${
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] uppercase tracking-wider transition-colors rounded font-mono ${
                   currentId === "debug"
                     ? "text-destructive bg-destructive/10"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
                 <Bug className="w-4 h-4" />
-                DEBUG
+                DBG
               </button>
             </nav>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-3 text-xs text-muted-foreground font-mono">
-              <span className="flex items-center gap-1">
-                <Wifi className="w-3 h-3 text-primary" /> NET: 5G
-              </span>
-              <span className="flex items-center gap-1">
-                <Clock className="w-3 h-3" /> {getCurrentTime()}
-              </span>
-            </div>
+            {/* SAIR button — desktop only */}
+            <button
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 text-[11px] uppercase tracking-wider border border-primary/40 text-primary hover:bg-primary/10 transition-colors rounded font-mono"
+            >
+              SAIR
+              <LogOut className="w-3.5 h-3.5" />
+            </button>
 
             {/* Hamburger button */}
             <button
@@ -97,7 +99,7 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
         </div>
       </header>
 
-      {/* Mobile overlay menu — full screen, opaque, matching screenshot */}
+      {/* Mobile overlay menu */}
       {menuOpen && (
         <div className="fixed inset-0 z-50 flex flex-col lg:hidden" style={{ backgroundColor: '#030304' }}>
           {/* Header */}
@@ -105,7 +107,7 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
             <button onClick={() => handleNav("/")} className="flex items-center gap-2.5">
               <span className="text-primary font-display text-xl">›_</span>
               <div>
-                <span className="text-lg font-bold tracking-wider text-foreground font-display italic">
+                <span className="text-lg font-bold tracking-wider text-foreground font-display">
                   ENEM_<span className="text-primary">LOG</span>
                 </span>
                 <p className="text-[9px] text-muted-foreground uppercase tracking-[0.25em] font-mono">Analytics System</p>
@@ -117,11 +119,10 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
           </div>
 
           {/* Nav items */}
-          <nav className="flex flex-col px-5 py-6 gap-3 flex-1">
-            {/* Visão Geral */}
+          <nav className="flex flex-col items-center justify-center flex-1 px-5 gap-3">
             <button
               onClick={() => handleNav("/")}
-              className={`flex items-center gap-4 w-full px-5 py-4 text-sm uppercase tracking-widest transition-colors border rounded-md font-mono ${
+              className={`flex items-center gap-4 w-full max-w-sm px-5 py-4 text-sm uppercase tracking-widest transition-colors border rounded-md font-mono ${
                 isHome
                   ? "border-primary/40 bg-primary/5 text-foreground"
                   : "border-border bg-card text-muted-foreground hover:text-foreground hover:border-primary/30"
@@ -136,28 +137,28 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
               <button
                 key={s.config.id}
                 onClick={() => handleNav(`/materia/${s.config.id}`)}
-                className={`flex items-center gap-4 w-full px-5 py-4 text-sm uppercase tracking-widest transition-colors border rounded-md font-mono ${
+                className={`flex items-center gap-4 w-full max-w-sm px-5 py-4 text-sm uppercase tracking-widest transition-colors border rounded-md font-mono ${
                   s.config.id === currentId
                     ? "border-primary/40 bg-primary/5 text-foreground"
                     : "border-border bg-card text-muted-foreground hover:text-foreground hover:border-primary/30"
                 }`}
               >
                 {subjectIcons[s.config.id]}
-                <span className="font-semibold">{s.config.shortName}</span>
+                <span className="font-semibold">{shortLabels[s.config.id] || s.config.shortName}</span>
                 {s.config.id === currentId && <span className="ml-auto w-2.5 h-2.5 rounded-sm bg-primary" />}
               </button>
             ))}
 
             <button
               onClick={() => handleNav("/debug")}
-              className={`flex items-center gap-4 w-full px-5 py-4 text-sm uppercase tracking-widest transition-colors border rounded-md font-mono ${
+              className={`flex items-center gap-4 w-full max-w-sm px-5 py-4 text-sm uppercase tracking-widest transition-colors border rounded-md font-mono ${
                 currentId === "debug"
                   ? "border-primary/40 bg-primary/5 text-foreground"
                   : "border-border bg-card text-muted-foreground hover:text-foreground hover:border-primary/30"
               }`}
             >
-              <Settings className="w-5 h-5" />
-              <span className="font-semibold">DEBUG_MODE</span>
+              <Bug className="w-5 h-5" />
+              <span className="font-semibold">DEBUG</span>
               {currentId === "debug" && <span className="ml-auto w-2.5 h-2.5 rounded-sm bg-primary" />}
             </button>
           </nav>

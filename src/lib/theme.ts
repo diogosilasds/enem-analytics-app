@@ -1,6 +1,7 @@
 /**
  * Fonte única de verdade para estilos que precisam ser injetados via JavaScript
  * (ex: cores de preenchimento do Recharts).
+ * Apenas modo Dark é suportado.
  */
 
 export const getThemeColors = (isDark: boolean = true) => {

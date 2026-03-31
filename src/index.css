@@ -4,6 +4,26 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
 
+:root {
+  --color-bg: #030304;
+  --color-card-bg: #0a0a0c;
+  --color-text-primary: #f0f0f0;
+  --color-text-secondary: #94a3b8;
+  --color-accent: #00ff9f;
+  --color-emerald: #00ff9f;
+  --color-cyan: #00f3ff;
+  --color-pink: #ff0055;
+  --color-yellow: #f3e600;
+  --color-purple: #bd00ff;
+  --color-violet: #bd00ff;
+  --color-neutral: #262626;
+  --color-border: #333333;
+  --color-grid: rgba(0, 243, 255, 0.07);
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Rajdhani', sans-serif;
+  --font-display: 'Orbitron', sans-serif;
+}
+
 @layer base {
   :root {
     --background: 240 20% 1.5%;
@@ -41,11 +61,6 @@
     --chart-neutral: 0 0% 15%;
     --chart-highlight: 55 95% 47%;
 
-    --color-cyan: #00f3ff;
-    --color-pink: #ff0055;
-    --color-yellow: #f3e600;
-    --color-purple: #bd00ff;
-
     --sidebar-background: 240 15% 3%;
     --sidebar-foreground: 0 0% 94%;
     --sidebar-primary: 155 100% 50%;
@@ -64,37 +79,37 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Rajdhani', sans-serif;
+    font-family: var(--font-sans);
     overflow-x: hidden;
     background-image:
-      linear-gradient(rgba(0, 243, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 243, 255, 0.04) 1px, transparent 1px);
+      linear-gradient(var(--color-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
     background-size: 40px 40px;
     background-position: center top;
   }
 
-  /* CRT Scanline overlay */
+  /* CRT Scanline & Vignette Effect */
   body::after {
-    content: "";
+    content: " ";
     display: block;
     position: fixed;
-    inset: 0;
+    top: 0; left: 0; bottom: 0; right: 0;
     background:
-      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.08) 50%),
-      linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+      linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
     background-size: 100% 2px, 3px 100%;
     z-index: 9999;
     pointer-events: none;
     mix-blend-mode: hard-light;
-    opacity: 0.5;
+    opacity: 0.6;
   }
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #050505; }
-::-webkit-scrollbar-thumb { background: #333; }
-::-webkit-scrollbar-thumb:hover { background: hsl(155, 100%, 50%); box-shadow: 0 0 8px hsl(155, 100%, 50%); }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #050505; border-left: 1px solid #222; }
+::-webkit-scrollbar-thumb { background: #333; border: 1px solid #000; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-accent); box-shadow: 0 0 10px var(--color-accent); }
 
 /* Recharts fix */
 .recharts-wrapper { outline: none !important; }
@@ -115,18 +130,18 @@
   }
 
   .font-display {
-    font-family: 'Orbitron', sans-serif !important;
+    font-family: var(--font-display) !important;
   }
 
   .font-mono {
-    font-family: 'JetBrains Mono', monospace !important;
+    font-family: var(--font-mono) !important;
   }
 
   .font-body {
-    font-family: 'Rajdhani', sans-serif !important;
+    font-family: var(--font-sans) !important;
   }
 
-  /* Cyber clipped panel */
+  /* Cyber Panel (Cantos Cortados) */
   .cyber-shape {
     clip-path: polygon(
       10px 0,
@@ -136,6 +151,7 @@
       0 100%,
       0 10px
     );
+    border: none !important;
     position: relative;
   }
 
@@ -143,16 +159,39 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: hsl(var(--card));
+    background: var(--color-card-bg);
     z-index: -1;
   }
 
-  /* Tech corner decorations */
+  .cyber-shape-border {
+    position: absolute;
+    inset: 0;
+    background: var(--color-border);
+    clip-path: polygon(
+      10px 0,
+      100% 0,
+      100% calc(100% - 10px),
+      calc(100% - 10px) 100%,
+      0 100%,
+      0 10px,
+      0 11.5px,
+      1px 11px,
+      1px calc(100% - 0.5px),
+      calc(100% - 11px) calc(100% - 1px),
+      calc(100% - 1px) calc(100% - 10.5px),
+      calc(100% - 1px) 1px,
+      10.5px 1px
+    );
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* Tech Borders & Decorations */
   .tech-border-corner {
     position: absolute;
     width: 8px;
     height: 8px;
-    border: 1px solid hsl(var(--primary));
+    border: 1px solid var(--color-accent);
     transition: all 0.3s ease;
   }
   .tech-corner-tl { top: -1px; left: -1px; border-bottom: none; border-right: none; }
@@ -165,7 +204,7 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 20%;
-    background: linear-gradient(to bottom, transparent, hsl(var(--primary)), transparent);
+    background: linear-gradient(to bottom, transparent, var(--color-accent), transparent);
     opacity: 0.05;
     animation: scan-vertical 3s linear infinite;
     pointer-events: none;
@@ -199,6 +238,16 @@
   .bg-circuit-pattern {
     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 5 L15 5 L15 15' stroke='%23ffffff' stroke-width='1' fill='none' opacity='0.05'/%3E%3Cpath d='M45 45 L55 45 L55 55' stroke='%23ffffff' stroke-width='1' fill='none' opacity='0.05'/%3E%3Ccircle cx='15' cy='15' r='1.5' fill='%23ffffff' opacity='0.05'/%3E%3C/svg%3E");
     background-size: 60px 60px;
+  }
+
+  .clip-chip {
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - 15px),
+      calc(100% - 15px) 100%,
+      0 100%
+    );
   }
 }
 
