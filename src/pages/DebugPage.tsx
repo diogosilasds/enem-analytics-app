@@ -10,14 +10,14 @@ import {
   Treemap,
 } from "recharts";
 
-const GREEN = "hsl(170, 45%, 38%)";
-const RED = "hsl(340, 70%, 48%)";
-const NEUTRAL = "hsl(215, 12%, 42%)";
-const YELLOW = "hsl(42, 60%, 50%)";
-const CYAN = "hsl(180, 40%, 40%)";
-const PINK = "hsl(330, 50%, 45%)";
-const GRID = "hsl(170,15%,13%)";
-const CARD_BG = "hsl(220,16%,7%)";
+const GREEN = "#00ff9f";
+const RED = "#ff0055";
+const NEUTRAL = "#94a3b8";
+const YELLOW = "#f3e600";
+const CYAN = "#00f3ff";
+const PINK = "#ff0055";
+const GRID = "rgba(0, 243, 255, 0.07)";
+const CARD_BG = "#0a0a0c";
 
 const tooltipStyle = {
   background: CARD_BG,
@@ -35,10 +35,10 @@ const SUBJECT_COLORS: Record<string, string> = {
 };
 
 function getTreemapColor(level: number): string {
-  if (level < 500) return "hsl(340, 50%, 30%)";
-  if (level < 650) return "hsl(42, 50%, 30%)";
-  if (level < 800) return "hsl(170, 35%, 22%)";
-  return "hsl(170, 40%, 18%)";
+  if (level < 500) return "#ff0055";
+  if (level < 650) return "#f3e600";
+  if (level < 800) return "#00ff9f";
+  return "#00f3ff";
 }
 
 const DebugPage = () => {
