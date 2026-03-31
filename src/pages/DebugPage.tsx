@@ -35,10 +35,10 @@ const SUBJECT_COLORS: Record<string, string> = {
 };
 
 function getTreemapColor(level: number): string {
-  if (level < 500) return "hsl(340, 50%, 30%)";
-  if (level < 650) return "hsl(42, 50%, 30%)";
-  if (level < 800) return "hsl(170, 35%, 22%)";
-  return "hsl(170, 40%, 18%)";
+  if (level < 500) return "#ff0055";
+  if (level < 650) return "#f3e600";
+  if (level < 800) return "#00ff9f";
+  return "#00f3ff";
 }
 
 const DebugPage = () => {
