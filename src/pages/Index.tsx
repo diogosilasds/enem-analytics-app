@@ -6,8 +6,6 @@ import { Footer } from "@/components/dashboard/Footer";
 import { StatBox } from "@/components/dashboard/StatBox";
 import { AlertTriangle } from "lucide-react";
 
-const GOAL = 750;
-
 const subjectModules: Record<string, string> = {
   humanas: "MOD_01",
   linguagens: "MOD_02",
@@ -19,7 +17,11 @@ const subjectModules: Record<string, string> = {
 const Index = () => {
   const navigate = useNavigate();
   const { subjects, average, correct, errors, totalQuestions } = useDashboardOverview();
-  const progress = Math.min((average / GOAL) * 100, 100);
+
+  // Calculate weighted average: each subject's goal contributes to overall target
+  const totalGoal = subjects.reduce((sum, s) => sum + s.config.goal, 0);
+  const overallTarget = Math.round(totalGoal / subjects.length); // ~780
+  const progress = Math.min((average / overallTarget) * 100, 100);
 
   return (
     <div className="min-h-screen bg-background">
@@ -44,7 +46,7 @@ const Index = () => {
               </div>
               <div className="flex items-baseline gap-3 mb-6">
                 <span className="text-5xl sm:text-6xl md:text-7xl font-display font-bold text-foreground tracking-tight">{average}</span>
-                <span className="text-xl sm:text-2xl md:text-3xl text-muted-foreground font-display">/ {GOAL}</span>
+                <span className="text-xl sm:text-2xl md:text-3xl text-muted-foreground font-display">/ {overallTarget}</span>
               </div>
               <div className="space-y-1">
                 <div className="flex justify-between text-[10px] text-muted-foreground uppercase tracking-wider">
@@ -52,7 +54,10 @@ const Index = () => {
                   <span className="text-primary">{progress.toFixed(1)}%</span>
                 </div>
                 <div className="w-full h-3 bg-secondary rounded-sm overflow-hidden">
-                  <div className="h-full text-primary progress-segmented rounded-sm transition-all duration-1000" style={{ width: `${progress}%` }} />
+                  <div
+                    className="h-full bg-primary rounded-sm transition-all duration-1000"
+                    style={{ width: `${progress}%` }}
+                  />
                 </div>
               </div>
             </div>
@@ -77,13 +82,18 @@ const Index = () => {
             const score = reg?.score;
             const goal = s.config.goal;
             const pct = score ? Math.min((score / goal) * 100, 100) : 0;
-            const efficiency = reg ? dashboardService.getSubjectEfficiency(reg) : 0;
 
             return (
               <button
                 key={s.config.id}
                 onClick={() => navigate(`/materia/${s.config.id}`)}
-                className="bg-card terminal-border rounded-lg p-5 text-left hover:border-primary/40 transition-all group relative overflow-hidden"
+                className="clip-chip bg-card relative overflow-hidden p-5 text-left hover:bg-card/80 transition-all group"
+                style={{
+                  borderLeft: '2px solid hsl(var(--primary))',
+                  borderTop: '1px solid hsl(var(--border))',
+                  borderRight: '1px solid hsl(var(--border))',
+                  borderBottom: '1px solid hsl(var(--border))',
+                }}
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
@@ -106,7 +116,7 @@ const Index = () => {
                         <p className="text-4xl sm:text-5xl font-display font-bold text-foreground transition-all tracking-tight">{score}</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-xl sm:text-2xl font-display font-bold text-primary">{efficiency}%</p>
+                        <p className="text-xl sm:text-2xl font-display font-bold text-primary">{pct.toFixed(1)}%</p>
                         <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Efic.</p>
                       </div>
                     </div>
@@ -130,7 +140,13 @@ const Index = () => {
           {/* Audit Logs Card — inside the grid */}
           <button
             onClick={() => navigate("/debug")}
-            className="bg-card terminal-border rounded-lg p-5 text-left hover:border-chart-highlight/40 transition-all"
+            className="clip-chip bg-card relative overflow-hidden p-5 text-left hover:bg-card/80 transition-all"
+            style={{
+              borderLeft: '2px solid hsl(var(--chart-highlight))',
+              borderTop: '1px solid hsl(var(--border))',
+              borderRight: '1px solid hsl(var(--border))',
+              borderBottom: '1px solid hsl(var(--border))',
+            }}
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
