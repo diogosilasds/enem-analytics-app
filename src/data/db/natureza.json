@@ -102,6 +102,42 @@
         { "numero": 23, "dificuldade": "Anulada", "situacao": "anulada" },
         { "numero": 25, "dificuldade": "Anulada", "situacao": "anulada" }
       ]
+    },
+    {
+      "id": "nat_2018_mar",
+      "subjectId": "natureza",
+      "examRef": "ENEM 2018",
+      "date": "2026-03-26",
+      "timeSpent": "1h17",
+      "score": 613,
+      "profile": {
+        "age": 17,
+        "status": "Simulado Mar/26"
+      },
+      "breakdown": [
+        { "level": 500, "total": 4, "correct": 4, "errors": 0 },
+        { "level": 550, "total": 2, "correct": 2, "errors": 0 },
+        { "level": 600, "total": 6, "correct": 6, "errors": 0 },
+        { "level": 650, "total": 14, "correct": 2, "errors": 12 },
+        { "level": 700, "total": 12, "correct": 4, "errors": 8 },
+        { "level": 750, "total": 6, "correct": 2, "errors": 4 },
+        { "level": 1000, "total": 1, "correct": 0, "errors": 1 }
+      ],
+      "qualitative": {
+        "strongPoint": "Desempenho perfeito até o nível 600 (12 acertos em 12 questões).",
+        "criticalZone": "Gargalo no Nível 650: aproveitamento despenca drasticamente (errou 12 das 14 questões).",
+        "errorPattern": "Inconsistência na TRI: acertos em 700/750 e erros em 650 sugerem chute e penalizam a nota.",
+        "alert": "Inversão lógica grave no nível 650. A TRI penaliza fortemente esse padrão.",
+        "triAnalysis": [
+          "TRI detecta inconsistência: base perfeita mas colapso no 650 com acertos em 700+ sugere chute.",
+          "A penalização reduz a nota estimada de ~680 para 613."
+        ],
+        "actionPlan": [
+          "Base (400-500): 100% >> 100% — Blindar a base. Tolerância zero a erros.",
+          "Operacional (500-700): 62% >> 80% — Prioridade tática. Aqui se ganha volume.",
+          "Alta Performance (700+): 17% >> 40% — Refinamento secundário."
+        ]
+      }
     }
   ]
 }
