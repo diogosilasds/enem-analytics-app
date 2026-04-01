@@ -172,15 +172,24 @@ const RedacaoDetail = () => {
 
         {/* Competency cards */}
         <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-          {competencies.map(c => (
-            <div key={c.id} className="bg-card terminal-border rounded-lg p-3 sm:p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className={`text-[10px] sm:text-xs font-bold ${c.score >= c.max ? "text-chart-correct" : "text-chart-highlight"}`}>{c.id}: {c.name}</span>
+          {competencies.map(c => {
+            const pct = c.max > 0 ? Math.round((c.score / c.max) * 100) : 0;
+            return (
+              <div key={c.id} className="bg-card terminal-border rounded-lg p-3 sm:p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className={`text-[10px] sm:text-xs font-bold ${c.score >= c.max ? "text-chart-correct" : "text-chart-highlight"}`}>{c.id}: {c.name}</span>
+                </div>
+                <p className="text-2xl sm:text-3xl font-display font-bold text-foreground">{c.score}</p>
+                <div className="w-full h-1.5 bg-secondary rounded-sm overflow-hidden mt-2">
+                  <div
+                    className={`h-full rounded-sm transition-all ${c.score >= c.max ? "bg-chart-correct" : "bg-chart-highlight"}`}
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
+                <p className="text-[9px] sm:text-[10px] text-muted-foreground mt-1 leading-tight">{c.description.substring(0, 60)}...</p>
               </div>
-              <p className="text-2xl sm:text-3xl font-display font-bold text-foreground">{c.score}</p>
-              <p className="text-[9px] sm:text-[10px] text-muted-foreground mt-1 leading-tight">{c.description.substring(0, 60)}...</p>
-            </div>
-          ))}
+            );
+          })}
         </section>
 
         <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
@@ -200,21 +209,34 @@ const RedacaoDetail = () => {
           </div>
         </section>
 
+        {/* Discrepancy chart - show all C1-C5 */}
         <section className="bg-card terminal-border rounded-lg p-4 sm:p-5">
           <p className="text-[10px] text-muted-foreground uppercase tracking-wider mb-3">Discrepância de Performance (0-200)</p>
-          <ResponsiveContainer width="100%" height={160}>
-            <BarChart data={discrepancyData}>
+          <ResponsiveContainer width="100%" height={220}>
+            <BarChart data={discrepancyData} barSize={40}>
               <CartesianGrid strokeDasharray="3 3" stroke={GRID} />
-              <XAxis dataKey="name" tick={{ fontSize: 10, fill: NEUTRAL }} />
+              <XAxis
+                dataKey="name"
+                tick={{ fontSize: 11, fill: NEUTRAL, fontFamily: "JetBrains Mono" }}
+                interval={0}
+              />
               <YAxis domain={[0, 200]} tick={{ fontSize: 9, fill: NEUTRAL }} />
               <Tooltip contentStyle={tooltipStyle} />
-              <Bar dataKey="value" name="Gap" fill={RED} fillOpacity={0.7} radius={[4, 4, 0, 0]}>
+              <Bar dataKey="value" name="Gap" radius={[4, 4, 0, 0]}>
                 {discrepancyData.map((d, i) => (
-                  <Cell key={i} fill={d.value > 0 ? RED : GREEN} />
+                  <Cell key={i} fill={d.value > 0 ? RED : GREEN} fillOpacity={0.8} />
                 ))}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
+          <div className="flex justify-center gap-4 mt-2 text-[9px] text-muted-foreground">
+            {competencies.map(c => (
+              <span key={c.id} className="flex items-center gap-1">
+                <span className={`w-2 h-2 rounded-full ${c.score >= c.max ? "bg-chart-correct" : "bg-destructive"}`} />
+                {c.id}: {c.max - c.score}pts
+              </span>
+            ))}
+          </div>
         </section>
 
         {/* Error Audit */}
@@ -278,7 +300,7 @@ const RedacaoDetail = () => {
           <div className="space-y-3">
             {correctorTips.map((t, i) => (
               <div key={i} className="border-l-2 border-chart-highlight/30 pl-3">
-                <p className="text-[10px] text-chart-highlight uppercase tracking-wider mb-1">Competência I</p>
+                <p className="text-[10px] text-chart-highlight uppercase tracking-wider mb-1">{t.competency}</p>
                 <p className="text-[10px] text-muted-foreground mb-1">{t.competencyName}</p>
                 <p className="text-xs text-foreground">Dica do Corretor: {t.tip}</p>
               </div>

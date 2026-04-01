@@ -51,31 +51,33 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
 
             {/* Desktop nav */}
             <nav className="hidden lg:flex items-center gap-1">
+              {/* Debug first */}
+              <button
+                onClick={() => handleNav("/debug")}
+                className={`nav-link-hover flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] uppercase tracking-wider transition-colors rounded font-mono relative ${
+                  currentId === "debug"
+                    ? "text-destructive bg-destructive/10"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Bug className="w-4 h-4 text-destructive" />
+                <span className={currentId === "debug" ? "text-destructive" : "text-destructive/70 group-hover:text-destructive"}>DBG</span>
+              </button>
+
               {subjects.map((s) => (
                 <button
                   key={s.config.id}
                   onClick={() => handleNav(`/materia/${s.config.id}`)}
-                  className={`flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] uppercase tracking-wider transition-colors rounded font-mono ${
+                  className={`nav-link-hover flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] uppercase tracking-wider transition-colors rounded font-mono relative ${
                     s.config.id === currentId
                       ? "text-primary bg-primary/10"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {subjectIcons[s.config.id]}
                   {shortLabels[s.config.id] || s.config.shortName}
                 </button>
               ))}
-              <button
-                onClick={() => handleNav("/debug")}
-                className={`flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] uppercase tracking-wider transition-colors rounded font-mono ${
-                  currentId === "debug"
-                    ? "text-destructive bg-destructive/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
-              >
-                <Bug className="w-4 h-4" />
-                DBG
-              </button>
             </nav>
           </div>
 
@@ -120,6 +122,20 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
 
           {/* Nav items */}
           <nav className="flex flex-col items-center justify-center flex-1 px-5 gap-3">
+            {/* Debug first */}
+            <button
+              onClick={() => handleNav("/debug")}
+              className={`flex items-center gap-4 w-full max-w-sm px-5 py-4 text-sm uppercase tracking-widest transition-colors border rounded-md font-mono ${
+                currentId === "debug"
+                  ? "border-destructive/40 bg-destructive/5 text-foreground"
+                  : "border-border bg-card text-muted-foreground hover:text-foreground hover:border-destructive/30"
+              }`}
+            >
+              <Bug className="w-5 h-5 text-destructive" />
+              <span className="font-semibold text-destructive">DEBUG</span>
+              {currentId === "debug" && <span className="ml-auto w-2.5 h-2.5 rounded-sm bg-destructive" />}
+            </button>
+
             <button
               onClick={() => handleNav("/")}
               className={`flex items-center gap-4 w-full max-w-sm px-5 py-4 text-sm uppercase tracking-widest transition-colors border rounded-md font-mono ${
@@ -148,19 +164,6 @@ export function NavHeader({ currentId, onNavigate }: NavHeaderProps) {
                 {s.config.id === currentId && <span className="ml-auto w-2.5 h-2.5 rounded-sm bg-primary" />}
               </button>
             ))}
-
-            <button
-              onClick={() => handleNav("/debug")}
-              className={`flex items-center gap-4 w-full max-w-sm px-5 py-4 text-sm uppercase tracking-widest transition-colors border rounded-md font-mono ${
-                currentId === "debug"
-                  ? "border-primary/40 bg-primary/5 text-foreground"
-                  : "border-border bg-card text-muted-foreground hover:text-foreground hover:border-primary/30"
-              }`}
-            >
-              <Bug className="w-5 h-5" />
-              <span className="font-semibold">DEBUG</span>
-              {currentId === "debug" && <span className="ml-auto w-2.5 h-2.5 rounded-sm bg-primary" />}
-            </button>
           </nav>
         </div>
       )}
